@@ -1,6 +1,8 @@
-export const NavbarLayout = () => {
+import React from "react";
+
+const NavbarLayout: React.FC = () => {
   return (
-    <div className="flex bg-uclaBlue justify-between md:justify-around p-3 items-center">
+    <div className="fixed w-full flex bg-uclaBlue justify-between md:justify-around p-3 items-center">
       <div className="md:text-4xl text-3xl text-offWhite font-noto-sans">
         Todo Link
       </div>
@@ -15,3 +17,4 @@ export const NavbarLayout = () => {
     </div>
   );
 };
+export default NavbarLayout;

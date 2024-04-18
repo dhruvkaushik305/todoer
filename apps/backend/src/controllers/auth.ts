@@ -2,6 +2,27 @@ import bcrypt from "bcrypt";
 import { SignupSchema } from "@repo/types/Signup";
 import db from "@repo/db/prisma";
 import { NextFunction, Request, Response } from "express";
+export async function checkUsername(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { username } = req.params;
+  try {
+    const user = await db.user.findFirst({
+      where: {
+        username,
+      },
+    });
+    console.log(username, user);
+    if (user) {
+      return res.status(200).json({ success: true, exists: true });
+    }
+    return res.status(200).json({ success: false, exists: false });
+  } catch (err) {
+    next(err);
+  }
+}
 export async function signup(req: Request, res: Response, next: NextFunction) {
   const verify = SignupSchema.safeParse(req.body);
   if (!verify.success) {

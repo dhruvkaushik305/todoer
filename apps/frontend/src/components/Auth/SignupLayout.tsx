@@ -156,7 +156,7 @@ const SignupLayout: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="px-3 py-2 bg-raisinBlack text-white rounded-md mt-5 text-lg font-bold"
+          className="px-3 py-2 bg-black text-white rounded-md mt-5 text-lg font-bold"
         >
           Sign up
         </button>

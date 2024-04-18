@@ -9,11 +9,6 @@ export default {
         navyBlue: "#04247C",
         blue: "#0458AB",
         offWhite: "#F7F7F7",
-        raisinBlack: "#161925",
-        delftBlue: "#23395B",
-        uclaBlue: "#406E8E",
-        mintGreen: "#CBF7ED",
-        thistle: "#CFBCDF",
       },
       fontFamily: {
         Pacifico: ["Pacifico", "cursive"],

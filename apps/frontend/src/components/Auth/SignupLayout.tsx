@@ -13,9 +13,8 @@ const SignupLayout: React.FC = () => {
     formState: { errors },
   } = useForm<SignupInput>();
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
-    //TODO: Put the backend url in env
     if (exists) return;
-    const res = await fetch("http://localhost:3000/api/v1/auth/signup", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +23,7 @@ const SignupLayout: React.FC = () => {
     });
     const response = await res.json();
     if (response.success) {
-      navigate("/dashboard");
+      navigate("/auth/login");
     }
   };
   const checkUsername = async (username: string) => {
@@ -33,7 +32,7 @@ const SignupLayout: React.FC = () => {
     timeout = setTimeout(async () => {
       const encodedUsername = encodeURIComponent(username);
       const res = await fetch(
-        `http://localhost:3000/api/v1/auth/checkUsername/${encodedUsername}`,
+        `${import.meta.env.VITE_BACKEND}/auth/checkUsername/${encodedUsername}`,
         {
           method: "GET",
           headers: {

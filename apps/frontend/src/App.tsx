@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import NavbarLayout from "./components/Navbar/NavbarLayout";
 import SignupLayout from "./components/Auth/SignupLayout";
 import LandingLayout from "./components/Landing/LandingLayout";
+import LoginLayout from "./components/Auth/LoginLayout";
 function App() {
   return (
     <div>
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />
+          <Route path="/auth/login" element={<LoginLayout />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>

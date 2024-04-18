@@ -15,7 +15,7 @@ const NavbarLayout: React.FC = () => {
         >
           Signup
         </button>
-        <button className="md:text-xl text-lg bg-blue font-Sriracha text-white md:py-2 md:px-3 py-1 px-2 rounded-lg">
+        <button className="md:text-xl text-lg bg-blue font-Sriracha text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={()=>navigate("/auth/login")}>
           Login
         </button>
       </div>

@@ -28,7 +28,6 @@ const SignupLayout: React.FC = () => {
       body: JSON.stringify(data),
     });
     const response = await res.json();
-    console.log(response);
     if (response.success) {
       navigate("/dashboard");
     }
@@ -56,8 +55,10 @@ const SignupLayout: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="bg-thistle p-5 rounded-lg md:w-2/4">
-      <h1 className="text-2xl text-center m-3">Signup</h1>
+    <div className="bg-sky-500/70 p-5 rounded-lg md:w-2/4">
+      <h1 className="md:text-4xl text-3xl text-center m-3 font-Lobster">
+        Signup
+      </h1>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col w-full">
           <label htmlFor="name" className="text-lg">
@@ -71,7 +72,9 @@ const SignupLayout: React.FC = () => {
             className="focus:outline-none p-2 rounded-md"
           />
           {errors.name && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-zinc-100 font-bold">
+              This field is required
+            </span>
           )}
         </div>
         <div className="flex flex-col w-full">
@@ -88,9 +91,15 @@ const SignupLayout: React.FC = () => {
             }}
             className="focus:outline-none p-2 rounded-md"
           />
-          {exists && <span>This username is already taken</span>}
+          {exists && (
+            <span className="text-zinc-100 font-bold">
+              This username is already taken
+            </span>
+          )}
           {errors.username && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-zinc-100 font-bold">
+              This field is required
+            </span>
           )}
         </div>
         <div className="flex flex-col w-full">
@@ -105,7 +114,9 @@ const SignupLayout: React.FC = () => {
             className="focus:outline-none p-2 rounded-md"
           />
           {errors.email && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-zinc-100 font-bold">
+              This field is required
+            </span>
           )}
         </div>
         <div className="flex flex-col">
@@ -138,12 +149,14 @@ const SignupLayout: React.FC = () => {
           </div>
 
           {errors.password && (
-            <span className="text-red-500">This field is required</span>
+            <span className="text-zinc-100 font-bold">
+              This field is required
+            </span>
           )}
         </div>
         <button
           type="submit"
-          className="px-3 py-2 bg-raisinBlack text-white rounded-md mt-5"
+          className="px-3 py-2 bg-raisinBlack text-white rounded-md mt-5 text-lg font-bold"
         >
           Sign up
         </button>

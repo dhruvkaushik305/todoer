@@ -14,7 +14,6 @@ export async function checkUsername(
         username,
       },
     });
-    console.log(username, user);
     if (user) {
       return res.status(200).json({ success: true, exists: true });
     }

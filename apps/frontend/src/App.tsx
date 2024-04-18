@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <NavbarLayout />
-      <div className="pt-[4rem] h-screen w-screen bg-delftBlue flex justify-center items-center">
+      <div className="pt-[4rem] h-screen w-screen bg-gradient-to-b from-darkBlue via-navyBlue to-sky-600 flex justify-center items-center">
         <Routes>
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />

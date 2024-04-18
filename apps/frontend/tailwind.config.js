@@ -4,6 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        midnightBlue: "#003D7A",
+        darkBlue: "#051537",
+        navyBlue: "#04247C",
+        blue: "#0458AB",
         offWhite: "#F7F7F7",
         raisinBlack: "#161925",
         delftBlue: "#23395B",
@@ -12,7 +16,9 @@ export default {
         thistle: "#CFBCDF",
       },
       fontFamily: {
-        "noto-sans": ["Noto Sans KR", "sans-serif"],
+        Pacifico: ["Pacifico", "cursive"],
+        Lobster: ["Lobster", "sans-serif"],
+        Sriracha: ["Sriracha", "cursive"],
       },
     },
   },

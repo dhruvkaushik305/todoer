@@ -2,12 +2,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import eyeIcon from "../../assets/hidden.png";
 import { useNavigate } from "react-router-dom";
-type Inputs = {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-};
+import {SignupInput} from "@repo/types/Signup"
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
@@ -16,8 +11,8 @@ const SignupLayout: React.FC = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  } = useForm<SignupInput>();
+  const onSubmit: SubmitHandler<SignupInput> = async (data) => {
     //TODO: Put the backend url in env
     if (exists) return;
     const res = await fetch("http://localhost:3000/api/v1/auth/signup", {

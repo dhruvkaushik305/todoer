@@ -1,8 +1,9 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod"
 import eyeIcon from "../../assets/hidden.png";
 import { useNavigate } from "react-router-dom";
-import {SignupInput} from "@repo/types/Signup"
+import {SignupInput, SignupSchema} from "@repo/types/Signup"
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
@@ -11,7 +12,7 @@ const SignupLayout: React.FC = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<SignupInput>();
+  } = useForm<SignupInput>({resolver: zodResolver(SignupSchema)});
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
     if (exists) return;
     const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
@@ -62,12 +63,12 @@ const SignupLayout: React.FC = () => {
             type="text"
             placeholder="Name"
             id="name"
-            {...register("name", { required: true })}
+            {...register("name",{required: true})}
             className="focus:outline-none p-2 rounded-md"
           />
           {errors.name && (
             <span className="text-zinc-100 font-bold">
-              This field is required
+              {errors.name.message}
             </span>
           )}
         </div>
@@ -92,7 +93,7 @@ const SignupLayout: React.FC = () => {
           )}
           {errors.username && (
             <span className="text-zinc-100 font-bold">
-              This field is required
+              {errors.username.message}
             </span>
           )}
         </div>
@@ -109,7 +110,7 @@ const SignupLayout: React.FC = () => {
           />
           {errors.email && (
             <span className="text-zinc-100 font-bold">
-              This field is required
+              {errors.email.message}
             </span>
           )}
         </div>
@@ -144,7 +145,7 @@ const SignupLayout: React.FC = () => {
 
           {errors.password && (
             <span className="text-zinc-100 font-bold">
-              This field is required
+              {errors.password.message}
             </span>
           )}
         </div>

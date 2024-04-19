@@ -6,7 +6,7 @@ const GlobalError = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err.message);
+  console.log("Gracefully caught", err.message);
   return res.status(err.status || 500).json({
     success: false,
     message: err.message || "Internal Server Error",

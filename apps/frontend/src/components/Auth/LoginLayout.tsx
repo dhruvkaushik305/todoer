@@ -1,10 +1,10 @@
 import React from 'react';
 import {useForm, SubmitHandler} from 'react-hook-form';
-import { LoginInput } from '@repo/types/Login';
+import {zodResolver} from '@hookform/resolvers/zod';
+import { LoginInput, LoginSchema } from '@repo/types/Login';
 import eyeIcon from '../../assets/hidden.png';
-const LoginLayout = () => {
-    //TODO Do input validation
-    const {handleSubmit, register, formState: {errors}} = useForm<LoginInput>();
+const LoginLayout: React.FC = () => {
+    const {handleSubmit, register, formState: {errors}} = useForm<LoginInput>({resolver: zodResolver(LoginSchema)});
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
         console.log(data);
     }
@@ -15,7 +15,7 @@ const LoginLayout = () => {
                 <label htmlFor='email'className='text-lg'>Email</label>
                 <input type='email' placeholder='Email' id='email' className='focus:outline-none p-2 rounded-md'
             {...register("email",{required:true})}/>
-            {errors.email && <span>This field is required</span>}
+            {errors.email && <span>{errors.email.message}</span>}
             </div>
             <div className='flex flex-col w-full text-lg gap-1'>
                 <label htmlFor='password'>Password</label>
@@ -34,7 +34,7 @@ const LoginLayout = () => {
                 </button>
                 </div>
                 
-            {errors.password && <span>This field is required</span>}
+            {errors.password && <span>{errors.password.message}</span>}
             </div>
             
             <button className='px-3 py-2 bg-black text-white rounded-md mt-5 text-lg font-bold' type='submit'>Login</button>

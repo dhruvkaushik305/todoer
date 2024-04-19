@@ -63,11 +63,11 @@ const SignupLayout: React.FC = () => {
             type="text"
             placeholder="Name"
             id="name"
-            {...register("name",{required: true})}
+            {...register("name")}
             className="focus:outline-none p-2 rounded-md"
           />
           {errors.name && (
-            <span className="text-zinc-100 font-bold">
+            <span className="text-zinc-100 font-bold text-sm">
               {errors.name.message}
             </span>
           )}
@@ -80,7 +80,7 @@ const SignupLayout: React.FC = () => {
             type="text"
             placeholder="Username"
             id="username"
-            {...register("username", { required: true })}
+            {...register("username")}
             onChange={async (e) => {
               await checkUsername(e.target.value);
             }}
@@ -92,7 +92,7 @@ const SignupLayout: React.FC = () => {
             </span>
           )}
           {errors.username && (
-            <span className="text-zinc-100 font-bold">
+            <span className="text-zinc-100 font-bold text-sm">
               {errors.username.message}
             </span>
           )}
@@ -105,11 +105,11 @@ const SignupLayout: React.FC = () => {
             type="email"
             placeholder="Email"
             id="email"
-            {...register("email", { required: true })}
+            {...register("email")}
             className="focus:outline-none p-2 rounded-md"
           />
           {errors.email && (
-            <span className="text-zinc-100 font-bold">
+            <span className="text-zinc-100 font-bold text-sm">
               {errors.email.message}
             </span>
           )}
@@ -123,7 +123,7 @@ const SignupLayout: React.FC = () => {
               type="password"
               placeholder="Password"
               id="password"
-              {...register("password", { required: true })}
+              {...register("password")}
               className="focus:outline-none p-2 rounded-md grow"
             />
             <button
@@ -144,7 +144,7 @@ const SignupLayout: React.FC = () => {
           </div>
 
           {errors.password && (
-            <span className="text-zinc-100 font-bold">
+            <span className="text-zinc-100 font-bold text-sm">
               {errors.password.message}
             </span>
           )}

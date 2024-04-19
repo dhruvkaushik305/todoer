@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <div className="fixed w-full flex bg-darkBlue justify-between md:justify-around p-3 items-center">
+    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center">
       <div className="md:text-4xl text-3xl text-offWhite font-Pacifico">
         Todo Link
       </div>

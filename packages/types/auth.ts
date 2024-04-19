@@ -17,7 +17,11 @@ export const SignupSchema = z
     username: z
       .string({ required_error: "Username is required" })
       .min(3, { message: "Must be 3 characters or more" })
-      .max(255, { message: "Must be 255 characters or less" }),
+      .max(255, { message: "Must be 255 characters or less" })
+      .regex(/^[A-Za-z][A-Za-z0-9_]*$/, {
+        message:
+          "Username must start with a character and can only contain letters,numbers and underscores",
+      }),
   })
   .required();
 export type SignupInput = z.infer<typeof SignupSchema>;

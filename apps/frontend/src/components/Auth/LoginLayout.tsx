@@ -14,13 +14,13 @@ const LoginLayout: React.FC = () => {
             <div className='flex flex-col w-full gap-1'>
                 <label htmlFor='email'className='text-lg'>Email</label>
                 <input type='email' placeholder='Email' id='email' className='focus:outline-none p-2 rounded-md'
-            {...register("email",{required:true})}/>
-            {errors.email && <span>{errors.email.message}</span>}
+            {...register("email")}/>
+            {errors.email && <span className="text-zinc-100 font-bold text-sm">{errors.email.message}</span>}
             </div>
             <div className='flex flex-col w-full text-lg gap-1'>
                 <label htmlFor='password'>Password</label>
                 <div className='flex justify-between gap-1'>
-                <input type='password' placeholder='Password' id='password' {...register("password",{required:true})}
+                <input type='password' placeholder='Password' id='password' {...register("password")}
                 className='w-full focus:outline-none p-2 rounded-md'/>
                 <button onClick={()=>{
                     const password = document.getElementById('password') as HTMLInputElement;
@@ -34,7 +34,7 @@ const LoginLayout: React.FC = () => {
                 </button>
                 </div>
                 
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <span className="text-zinc-100 font-bold text-sm">{errors.password.message}</span>}
             </div>
             
             <button className='px-3 py-2 bg-black text-white rounded-md mt-5 text-lg font-bold' type='submit'>Login</button>

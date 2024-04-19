@@ -3,10 +3,33 @@ import {useForm, SubmitHandler} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import { LoginInput, LoginSchema } from '@repo/types/Login';
 import eyeIcon from '../../assets/hidden.png';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 const LoginLayout: React.FC = () => {
+    const navigate = useNavigate();
     const {handleSubmit, register, formState: {errors}} = useForm<LoginInput>({resolver: zodResolver(LoginSchema)});
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
-        console.log(data);
+        try{
+            const response = await fetch(`${import.meta.env.VITE_BACKEND}/auth/login`, {
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            if(result.success){
+                toast.success(`Welcom back ${result.data.name.split(' ')[0]}`)
+                navigate('/dashboard');
+            }
+            else{
+                toast.error(result.error);
+            }
+        }
+        catch(err){
+            console.log(err);
+            toast.error("Something went wrong")
+        }
     }
     return <div className='bg-sky-500/70 p-3 md:p-5 rounded-lg w-3/4 max-w-fit'>
         <h1 className='md:text-4xl text-3xl text-center m-3 font-Lobster'>Login</h1>

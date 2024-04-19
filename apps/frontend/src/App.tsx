@@ -5,9 +5,11 @@ import NavbarLayout from "./components/Navbar/NavbarLayout";
 import SignupLayout from "./components/Auth/SignupLayout";
 import LandingLayout from "./components/Landing/LandingLayout";
 import LoginLayout from "./components/Auth/LoginLayout";
+import { Toaster } from "sonner";
 function App() {
   return (
     <div>
+      <Toaster/>
       <NavbarLayout />
       <div className="pt-[4rem] h-screen w-screen bg-gradient-to-b from-darkBlue via-navyBlue to-sky-600 flex justify-center items-center">
         <Routes>

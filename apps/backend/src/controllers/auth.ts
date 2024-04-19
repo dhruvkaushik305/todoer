@@ -1,7 +1,9 @@
-import bcrypt from "bcrypt";
 import { SignupSchema } from "@repo/types/Signup";
-import db from "@repo/db/prisma";
 import { NextFunction, Request, Response } from "express";
+import { LoginSchema } from "@repo/types/Login";
+import db from "@repo/db/prisma";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 export async function checkUsername(
   req: Request,
   res: Response,
@@ -40,6 +42,41 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
       },
     });
     return res.status(201).json({ success: true, data: user });
+  } catch (err) {
+    next(err);
+  }
+}
+export async function login(req: Request, res: Response, next: NextFunction) {
+  const verify = LoginSchema.safeParse(req.body);
+  if (!verify.success) {
+    return res.status(400).json({ success: false, error: verify.error.issues });
+  }
+  try {
+    const user = await db.user.findFirst({
+      where: {
+        email: verify.data.email,
+      },
+    });
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+    const match = await bcrypt.compare(verify.data.password, user.password);
+    if (!match) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Invalid password" });
+    }
+    if (!process.env.JWT_SECRET) {
+      throw new Error("JWT_SECRET not found. Did you set up the ENV?");
+    }
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    //send cookie
+    res.cookie("authorization", `Bearer ${token}`, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
+    return res.status(200).json({ success: true, data: user });
+    //send response
   } catch (err) {
     next(err);
   }

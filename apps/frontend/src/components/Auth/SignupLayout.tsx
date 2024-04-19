@@ -4,6 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import eyeIcon from "../../assets/hidden.png";
 import { useNavigate } from "react-router-dom";
 import {SignupInput, SignupSchema} from "@repo/types/Signup"
+import { toast } from "sonner";
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
@@ -15,16 +16,23 @@ const SignupLayout: React.FC = () => {
   } = useForm<SignupInput>({resolver: zodResolver(SignupSchema)});
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
     if (exists) return;
-    const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const response = await res.json();
-    if (response.success) {
-      navigate("/auth/login");
+    try{
+      const response = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      if(result.success){
+        toast.success("Account created, let's login");
+        navigate("/auth/login");
+      }
+    }
+    catch(err){
+      console.log(err);
+      toast.error("Something went wrong");
     }
   };
   const checkUsername = async (username: string) => {

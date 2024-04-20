@@ -6,7 +6,11 @@ import SignupLayout from "./components/Auth/SignupLayout";
 import LandingLayout from "./components/Landing/LandingLayout";
 import LoginLayout from "./components/Auth/LoginLayout";
 import { Toaster } from "sonner";
+import useAuth from "./hooks/useAuth";
 function App() {
+  //check if user is logged in
+  const user = useAuth();
+  console.log(user);
   return (
     <div>
       <Toaster/>

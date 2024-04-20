@@ -14,6 +14,11 @@ const authenticateUser = async (
   next: NextFunction
 ) => {
   try {
+    if (!req.cookies.authorization) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Unauthorized, No access token found" });
+    }
     const token = req.cookies.authorization.split(" ")[1];
     if (!token) {
       return res

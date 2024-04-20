@@ -77,7 +77,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     //send cookie
     res.cookie("authorization", `Bearer ${token}`, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
     });
     return res.status(200).json({ success: true, data: user });
     //send response

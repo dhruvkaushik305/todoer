@@ -5,7 +5,10 @@ import { LoginInput, LoginSchema } from '@repo/types/Login';
 import eyeIcon from '../../assets/hidden.png';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useSetRecoilState } from 'recoil';
+import { userData } from '../../store/auth';
 const LoginLayout: React.FC = () => {
+    const setUser = useSetRecoilState(userData);
     const navigate = useNavigate();
     const {handleSubmit, register, formState: {errors}} = useForm<LoginInput>({resolver: zodResolver(LoginSchema)});
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
@@ -19,6 +22,8 @@ const LoginLayout: React.FC = () => {
             });
             const result = await response.json();
             if(result.success){
+                //set the user data in atom
+                setUser(result.data);
                 toast.success(`Welcom back ${result.data.name.split(' ')[0]}`)
                 navigate('/dashboard');
             }

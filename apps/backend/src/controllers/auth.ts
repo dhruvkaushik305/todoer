@@ -4,6 +4,10 @@ import { LoginSchema } from "@repo/types/Login";
 import db from "@repo/db/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { UserType } from "@repo/types/User";
+interface userRequest extends Request {
+  user?: UserType;
+}
 export async function checkUsername(
   req: Request,
   res: Response,
@@ -81,3 +85,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
+export const userIsLogged = (req: userRequest, res: Response) => {
+  return res.status(200).json({ success: true, data: req.user });
+};

@@ -6,10 +6,10 @@ const GlobalError = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("Gracefully caught", err.message);
+  console.log("Gracefully caught", err);
   return res.status(err.status || 500).json({
     success: false,
-    message: err.message || "Internal Server Error",
+    error: err.message || "Internal Server Error",
   });
 };
 export default GlobalError;

@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./components/Dashboard/Dashboard";
 import NavbarLayout from "./components/Navbar/NavbarLayout";
 import SignupLayout from "./components/Auth/SignupLayout";
 import LandingLayout from "./components/Landing/LandingLayout";
 import LoginLayout from "./components/Auth/LoginLayout";
 import { Toaster } from "sonner";
 import useAuth from "./hooks/useAuth";
+import DashboardLayout from "./components/Dashboard/DashboardLayout";
 function App() {
   //check if user is logged in
   const user = useAuth();
@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />
           <Route path="/auth/login" element={<LoginLayout />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardLayout />} />
         </Routes>
       </div>
     </div>

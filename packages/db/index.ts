@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-
+//TODO: Add error handling
 const prismaClientSingleton = () => {
   return new PrismaClient();
 };

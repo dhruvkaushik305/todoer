@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import todosAtom from '../../../store/todo';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+//TODO: Remove this hard coded type
 interface TodoProps {
     id: number,
     task: string,

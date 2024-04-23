@@ -9,11 +9,11 @@ import useAuth from "./hooks/useAuth";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 function App() {
   //check if user is logged in
-  // const user = useAuth();
-  // console.log(user);
+  const user = useAuth();
+  console.log(user);
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       <NavbarLayout />
       <div className="pt-[4rem] h-screen w-screen bg-gradient-to-b from-darkBlue via-navyBlue to-sky-600 flex justify-center items-center">
         <Routes>

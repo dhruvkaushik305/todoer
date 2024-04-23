@@ -77,6 +77,9 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     //send cookie
     res.cookie("authorization", `Bearer ${token}`, {
       httpOnly: true,
+      domain: "localhost",
+      path: "/",
+      expires: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
     });
     return res.status(200).json({ success: true, data: user });
     //send response

@@ -35,7 +35,6 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
   }
   let { name, email, password, username } = verify.data;
   password = await bcrypt.hash(password, 10);
-  // Save user to database
   try {
     const user = await db.user.create({
       data: {
@@ -77,9 +76,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     //send cookie
     res.cookie("authorization", `Bearer ${token}`, {
       httpOnly: true,
-      domain: "localhost",
-      path: "/",
-      expires: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     });
     return res.status(200).json({ success: true, data: user });
     //send response

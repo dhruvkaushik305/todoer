@@ -1,26 +1,38 @@
-import { useEffect, useState } from "react";
+import { UserType } from "@repo/types/User";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { userData } from "../store/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-const useAuth = ()=>{
-    const [user, setUser] = useState(null);
-    useEffect(()=>{
-        const getUser = async ()=>{
-            try{
-                const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/isLogged`,{
-                    credentials: 'include'
-                });
-                const response = await res.json();
-                console.log(response);
-                if(response.success){
-                    setUser(response.data);
-                }
-                else setUser(null);
-            }catch(err){
-                console.error(err);
-                setUser(null);
-            }
+const useAuth = () => {
+  const navigate = useNavigate();
+  const setUser = useSetRecoilState(userData);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND}/auth/isLogged`,
+          {
+            credentials: "include",
+          }
+        );
+        const response: { success: boolean; data: UserType } = await res.json();
+        if (response.success) {
+          setUser(response.data);
+          toast.success(`Welcome back ${response.data.name}`);
+          navigate("/dashboard");
+        } else {
+          setUser(null);
+          toast.error("Please login to continue");
+          navigate("/auth/login");
         }
-        getUser()
-    },[])
-    return user;
-}
+      } catch (err) {
+        console.error(err);
+        setUser(null);
+      }
+    };
+    getUser();
+  }, []);
+};
 export default useAuth;

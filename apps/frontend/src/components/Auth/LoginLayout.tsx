@@ -23,9 +23,8 @@ const LoginLayout: React.FC = () => {
             });
             const result = await response.json();
             if (result.success) {
-                //set the user data in atom
                 setUser(result.data);
-                toast.success(`Welcom back ${result.data.name.split(' ')[0]}`)
+                toast.success(`Welcome back ${result.data.name.split(' ')[0]}`)
                 navigate('/dashboard');
             }
             else {

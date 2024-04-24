@@ -8,9 +8,7 @@ import { Toaster } from "sonner";
 import useAuth from "./hooks/useAuth";
 import DashboardLayout from "./components/Dashboard/DashboardLayout";
 function App() {
-  //check if user is logged in
-  const user = useAuth();
-  console.log(user);
+  useAuth();
   return (
     <div>
       <Toaster />

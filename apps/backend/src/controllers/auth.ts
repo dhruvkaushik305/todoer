@@ -73,17 +73,26 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       throw new Error("JWT_SECRET not found. Did you set up the ENV?");
     }
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-    //send cookie
     res.cookie("authorization", `Bearer ${token}`, {
       httpOnly: true,
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     });
     return res.status(200).json({ success: true, data: user });
-    //send response
   } catch (err) {
     next(err);
   }
 }
 export const userIsLogged = (req: userRequest, res: Response) => {
   return res.status(200).json({ success: true, data: req.user });
+};
+export const logout = (req: Request, res: Response) => {
+  if (req.cookies.authorization) {
+    //remove the cookie
+    res.clearCookie("authorization");
+    res.status(200).json({ success: true, message: "Cookie removed" });
+  } else {
+    return res
+      .status(401)
+      .json({ success: false, message: "No cookie present" });
+  }
 };

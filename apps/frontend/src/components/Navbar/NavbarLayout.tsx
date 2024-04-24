@@ -1,24 +1,42 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userData } from "../../store/auth";
+import { toast } from "sonner";
 
 const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useRecoilState(userData);
   return (
     <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center">
       <div className="md:text-4xl text-3xl text-offWhite font-Pacifico">
         Todo Link
       </div>
-      <div className="flex justify-between gap-3">
+      {user === null ? (<div className="flex justify-between gap-3">
         <button
           className="md:text-xl font-Sriracha text-lg bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg"
           onClick={() => navigate("/auth/signup")}
         >
           Signup
         </button>
-        <button className="md:text-xl text-lg bg-blue font-Sriracha text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={()=>navigate("/auth/login")}>
+        <button className="md:text-xl text-lg bg-blue font-Sriracha text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={() => navigate("/auth/login")}>
           Login
         </button>
-      </div>
+      </div>) : (<div>
+        <button className="bg-blue rounded-md text-white px-3 py-2" onClick={async () => {
+          const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/logout`, {
+            method: "DELETE",
+            credentials: "include"
+          });
+          const response: { success: boolean, message: string } = await res.json();
+          if (response.success) {
+            toast.success("Logged out successfully");
+            setUser(null);
+            navigate("/");
+          }
+        }}>Logout</button>
+      </div>)}
+
     </div>
   );
 };

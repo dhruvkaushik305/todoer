@@ -6,7 +6,8 @@
   "exports": {
     "./Signup": "./auth.ts",
     "./Login": "./auth.ts",
-    "./User": "./user.ts"
+    "./User": "./user.ts",
+    "./Todo": "./todo.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

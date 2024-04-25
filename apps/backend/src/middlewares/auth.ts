@@ -29,9 +29,12 @@ const authenticateUser = async (
       throw new Error("JWT_SECRET not found. Did you set up the ENV?");
     }
     const { id } = jwt.verify(token, process.env.JWT_SECRET) as decodedToken;
-    const user = await db.user.findUnique({
+    const user: UserType | null = await db.user.findUnique({
       where: {
         id,
+      },
+      include: {
+        todos: true,
       },
     });
     if (!user) {

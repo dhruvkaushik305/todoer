@@ -1,11 +1,21 @@
-import { atom } from "recoil";
-const todosArray = [
-  { id: 1, task: "Make notes", completed: false },
-  { id: 2, task: "Make dinner", completed: false },
-  { id: 3, task: "Make bed", completed: false },
-];
-const todosAtom = atom({
-  key: "todosAtom",
-  default: todosArray,
+import { selector } from "recoil";
+import { userData } from "./auth";
+import { TodoType } from "@repo/types/Todo";
+const todoSelector = selector({
+  key: "todoSelector",
+  get: ({ get }) => {
+    const user = get(userData);
+    if (user) {
+      return user.todos;
+    } else {
+      return [];
+    }
+  },
+  set: ({ set }, newValue) => {
+    set(userData, (oldUser) => {
+      if (oldUser) return { ...oldUser, todos: newValue as TodoType[] };
+      else return oldUser;
+    });
+  },
 });
-export default todosAtom;
+export default todoSelector;

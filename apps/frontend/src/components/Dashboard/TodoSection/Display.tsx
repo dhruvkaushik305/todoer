@@ -1,11 +1,13 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import todosAtom from "../../../store/todo";
 import Todo from "./Todo";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import todoSelector from "../../../store/todo";
+import { TodoType } from "@repo/types/Todo";
 const Display: React.FC = () => {
-    const [todos, setTodos] = useRecoilState(todosAtom);
+    const [todos, setTodos] = useRecoilState<TodoType[] | undefined>(todoSelector);
+    if (!todos) return null;
     const dragHandler = (event: any) => {
         const { active, over } = event;
         if (active.id === over.id) return;

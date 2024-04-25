@@ -49,7 +49,7 @@ export const read = async (
     next(err);
   }
 };
-export const update = async (
+export const updateOrder = async (
   req: userRequest,
   res: Response,
   next: NextFunction
@@ -102,6 +102,30 @@ export const update = async (
     return res
       .status(200)
       .json({ success: true, data: [updatedTodo1, updatedTodo2] });
+  } catch (err) {
+    next(err);
+  }
+};
+export const updateStatus = async (
+  req: userRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id, state } = req.body;
+  if (!id || state === undefined)
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
+  try {
+    const todo = await db.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        completed: state,
+      },
+    });
+    return res.status(200).json({ success: true, data: todo });
   } catch (err) {
     next(err);
   }

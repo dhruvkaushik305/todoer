@@ -22,7 +22,7 @@ const Display: React.FC = () => {
         <div className="h-full bg-gray-200 p-5 flex flex-col gap-2">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-                    {todos.map((todo) => <Todo key={todo.id} id={todo.id} task={todo.task} completed={todo.completed} />)}
+                    {todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
                 </SortableContext>
 
             </DndContext>

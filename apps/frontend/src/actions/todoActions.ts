@@ -54,6 +54,25 @@ export const editState = async (id: string, state: boolean) => {
     return { success: false };
   }
 };
+export const editOrder = async (id: string, order: number) => {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_BACKEND}/todo/updateOrder/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ order }),
+        credentials: "include",
+      }
+    );
+    const response = await res.json();
+    return response;
+  } catch (err) {
+    console.error("Error while updating the order of the todo", err);
+  }
+};
 export const deleteTodo = async (id: string) => {
   try {
     const res = await fetch(

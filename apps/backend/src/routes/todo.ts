@@ -13,6 +13,6 @@ router.post("/create", authenticateUser, create);
 router.get("/read", authenticateUser, read);
 router.patch("/updateStatus", authenticateUser, updateStatus);
 router.patch("/updateTodo", authenticateUser, updateTodo);
-router.patch("/updateOrder", authenticateUser, updateOrder);
+router.patch("/updateOrder/:id", authenticateUser, updateOrder);
 router.delete("/delete/:id", authenticateUser, remove);
 export default router;

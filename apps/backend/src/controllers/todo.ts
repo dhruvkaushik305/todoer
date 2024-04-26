@@ -9,7 +9,7 @@ export const create = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { task }: { task: string } = req.body;
+  const { task, order }: { task: string; order: number } = req.body;
   if (!task) {
     return res
       .status(400)
@@ -20,6 +20,7 @@ export const create = async (
       data: {
         task,
         userId: req.user!.id,
+        order,
       },
     });
     return res.status(201).json({ success: true, data: response });
@@ -54,54 +55,23 @@ export const updateOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { order1, order2 } = req.body;
-  //swap the order of the two todos
-  try {
-    const todo1 = await db.todo.findUnique({
-      where: {
-        order: order1,
-        userId: req.user!.id,
-      },
-    });
-    const todo2 = await db.todo.findUnique({
-      where: {
-        order: order2,
-        userId: req.user!.id,
-      },
-    });
-    if (!todo1 || !todo2) {
-      return res.status(400).json({
-        success: false,
-        message: "Todos with the given order not found",
-      });
-    }
-    let updatedTodo1 = await db.todo.update({
-      where: {
-        id: todo1.id,
-      },
-      data: {
-        order: 1,
-      },
-    });
-    let updatedTodo2 = await db.todo.update({
-      where: {
-        id: todo2.id,
-      },
-      data: {
-        order: order1,
-      },
-    });
-    updatedTodo1 = await db.todo.update({
-      where: {
-        id: todo1.id,
-      },
-      data: {
-        order: order2,
-      },
-    });
+  const { id } = req.params;
+  const { order } = req.body;
+  if (!id || order === undefined) {
     return res
-      .status(200)
-      .json({ success: true, data: [updatedTodo1, updatedTodo2] });
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
+  }
+  try {
+    const todo = await db.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        order,
+      },
+    });
+    return res.status(200).json({ sucess: true, data: todo });
   } catch (err) {
     next(err);
   }

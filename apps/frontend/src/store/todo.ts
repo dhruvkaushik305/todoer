@@ -5,8 +5,9 @@ const todoSelector = selector({
   key: "todoSelector",
   get: ({ get }) => {
     const user = get(userData);
-    if (user) {
-      return user.todos;
+    if (user && user.todos) {
+      const sortedTodos = [...user.todos].sort((a, b) => a.order - b.order);
+      return sortedTodos;
     } else {
       return [];
     }

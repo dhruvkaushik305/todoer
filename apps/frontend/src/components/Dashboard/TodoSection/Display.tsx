@@ -3,17 +3,13 @@ import { useRecoilState } from "recoil";
 import Todo from "./Todo";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import todoSelector from "../../../store/todo";
 import { TodoType } from "@repo/types/Todo";
 import { editOrder } from "../../../actions/todoActions";
 import { toast } from "sonner";
+import todoAtom from "../../../store/todo";
 const Display: React.FC = () => {
     let timeout: NodeJS.Timeout | undefined;
-    const [todos, setTodos] = useRecoilState<TodoType[]>(todoSelector);
-    if (!todos) {
-        console.log("Fix this urgently");
-        return null;
-    }
+    const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
     const dragHandler = (event: any) => {
         const { active, over } = event;
         if (active.id === over.id) return;
@@ -38,7 +34,7 @@ const Display: React.FC = () => {
         <div className="h-full bg-gray-200 p-5 flex flex-col gap-2">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-                    {todos.length === 0 && <div className="text-center text-2xl">No todos</div>}
+                    {todos.length === 0 && <div className="text-center text-2xl">No tasks yet</div>}
                     {todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
                 </SortableContext>
             </DndContext>

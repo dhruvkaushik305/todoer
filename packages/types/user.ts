@@ -6,6 +6,5 @@ export type UserType = {
   email: string;
   username: string;
   password: string;
-  todos?: TodoType[];
   joinedAt: Date;
 };

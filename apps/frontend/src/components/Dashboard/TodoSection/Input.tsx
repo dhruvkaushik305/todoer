@@ -1,16 +1,17 @@
 import React, { useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import todoSelector from "../../../store/todo";
 import { TodoType } from "@repo/types/Todo";
 import { toast } from "sonner";
 import { createTodo } from "../../../actions/todoActions";
+import todoAtom from "../../../store/todo";
 const Input: React.FC = () => {
-    const setTodos = useSetRecoilState(todoSelector);
+    const setTodos = useSetRecoilState(todoAtom);
     const task = useRef<HTMLInputElement>(null);
     const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>) => {
-        let order = 0;
         e.preventDefault();
+        let order = 0;
         if (task.current && task.current.value.trim() !== "") {
+            //Updating the local state first
             setTodos((oldTodos) => {
                 if (oldTodos) {
                     order = oldTodos.length
@@ -24,8 +25,10 @@ const Input: React.FC = () => {
                     ]
                 } else return [];
             })
+            //Updating the server
             const response: { success: boolean, data?: TodoType } = await createTodo(task.current.value, order);
             if (response.success) {
+                //Updating the local state with the correct values
                 const newTodo: TodoType = response.data!;
                 setTodos((oldTodos) => {
                     if (oldTodos) {

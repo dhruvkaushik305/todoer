@@ -3,17 +3,17 @@ import { GoGrabber } from "react-icons/go";
 import { useSetRecoilState } from 'recoil';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import todoSelector from '../../../store/todo';
 import { TodoType } from '@repo/types/Todo';
 import { TiDeleteOutline } from "react-icons/ti";
 import { CiEdit } from "react-icons/ci";
 import { IoMdCheckmark } from "react-icons/io";
 import { toast } from 'sonner';
 import { deleteTodo, editState, editTodo } from '../../../actions/todoActions';
+import todoAtom from '../../../store/todo';
 const Todo: React.FC<{ todo: TodoType }> = (props) => {
     const { todo } = props;
     const [edit, setEdit] = useState(false);
-    const setTodos = useSetRecoilState<TodoType[]>(todoSelector);
+    const setTodos = useSetRecoilState<TodoType[]>(todoAtom);
     const editRef = useRef<HTMLInputElement | null>(null);
     let timeout = useRef<NodeJS.Timeout | undefined>();
     const deleteHandler = async () => {
@@ -25,7 +25,6 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
             toast.error("Failed to delete todo");
         }
     }
-    if (!setTodos) return null;
     const {
         attributes,
         listeners,
@@ -39,6 +38,7 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
     }
     const markAsCompleted = () => {
         let state = !todo.completed;
+        //Updating the local state
         setTodos((oldTodos) => oldTodos?.map((oldTodo) => {
             if (oldTodo.id === todo.id) {
                 state = !oldTodo.completed;
@@ -48,6 +48,7 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
         }))
         clearTimeout(timeout.current);
         timeout.current = setTimeout(async () => {
+            //Updating the server state
             const response: { success: boolean, data?: TodoType } = await editState(todo.id, state);
             if (response.success) {
                 toast.success("Marked as completed");

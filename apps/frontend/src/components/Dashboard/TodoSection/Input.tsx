@@ -3,6 +3,7 @@ import { useSetRecoilState } from "recoil";
 import todoSelector from "../../../store/todo";
 import { TodoType } from "@repo/types/Todo";
 import { toast } from "sonner";
+import { createTodo } from "../../../actions/todoActions";
 const Input: React.FC = () => {
     const setTodos = useSetRecoilState(todoSelector);
     const task = useRef<HTMLInputElement>(null);
@@ -21,19 +22,9 @@ const Input: React.FC = () => {
                     ]
                 } else return [];
             })
-            const res = await fetch(`${import.meta.env.VITE_BACKEND}/todo/create`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    task: task.current.value,
-                }),
-                credentials: "include"
-            });
-            const response = await res.json();
+            const response: { success: boolean, data?: TodoType } = await createTodo(task.current.value);
             if (response.success) {
-                const newTodo: TodoType = response.data;
+                const newTodo: TodoType = response.data!;
                 setTodos((oldTodos) => {
                     if (oldTodos) {
                         return oldTodos.map((todo) => {

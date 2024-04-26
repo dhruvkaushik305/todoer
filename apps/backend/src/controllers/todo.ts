@@ -130,6 +130,30 @@ export const updateStatus = async (
     next(err);
   }
 };
+export const updateTodo = async (
+  req: userRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id, task } = req.body;
+  if (!id || !task)
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
+  try {
+    const todo = await db.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        task,
+      },
+    });
+    return res.status(200).json({ success: true, data: todo });
+  } catch (err) {
+    next(err);
+  }
+};
 export const remove = async (
   req: userRequest,
   res: Response,

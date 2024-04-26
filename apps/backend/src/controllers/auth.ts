@@ -59,9 +59,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       where: {
         email: verify.data.email,
       },
-      include: {
-        todos: true,
-      },
     });
     if (!user) {
       return res.status(404).json({ success: false, error: "User not found" });

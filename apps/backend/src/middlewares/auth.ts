@@ -33,9 +33,6 @@ const authenticateUser = async (
       where: {
         id,
       },
-      include: {
-        todos: true,
-      },
     });
     if (!user) {
       return res

@@ -44,6 +44,9 @@ export const read = async (
         task: true,
         completed: true,
       },
+      orderBy: {
+        order: "asc",
+      },
     });
     return res.status(200).json({ success: true, data: todos });
   } catch (err) {

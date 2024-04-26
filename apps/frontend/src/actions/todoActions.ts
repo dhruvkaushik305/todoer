@@ -1,4 +1,4 @@
-export const createTodo = async (task: string) => {
+export const createTodo = async (task: string, order: number) => {
   try {
     const res = await fetch(`${import.meta.env.VITE_BACKEND}/todo/create`, {
       method: "POST",
@@ -7,6 +7,7 @@ export const createTodo = async (task: string) => {
       },
       body: JSON.stringify({
         task,
+        order,
       }),
       credentials: "include",
     });

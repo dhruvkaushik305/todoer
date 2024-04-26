@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { GoGrabber } from "react-icons/go";
 import { useSetRecoilState } from 'recoil';
 import { useSortable } from '@dnd-kit/sortable';
@@ -13,11 +13,11 @@ import { deleteTodo, editState, editTodo } from '../../../actions/todoActions';
 const Todo: React.FC<{ todo: TodoType }> = (props) => {
     const { todo } = props;
     const [edit, setEdit] = useState(false);
-    const setTodos = useSetRecoilState<TodoType[] | undefined>(todoSelector);
+    const setTodos = useSetRecoilState<TodoType[]>(todoSelector);
     const editRef = useRef<HTMLInputElement | null>(null);
     let timeout = useRef<NodeJS.Timeout | undefined>();
     const deleteHandler = async () => {
-        setTodos((oldTodos) => oldTodos!.filter((todo) => todo.id !== todo.id));
+        setTodos((oldTodos) => oldTodos!.filter((oldTodo) => oldTodo.id !== todo.id));
         const response: { success: boolean, data?: TodoType } = await deleteTodo(todo.id);
         if (response.success) {
             toast.success("Todo deleted");

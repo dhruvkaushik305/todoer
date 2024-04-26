@@ -8,13 +8,15 @@ const Input: React.FC = () => {
     const setTodos = useSetRecoilState(todoSelector);
     const task = useRef<HTMLInputElement>(null);
     const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>) => {
+        let order = 0;
         e.preventDefault();
         if (task.current && task.current.value.trim() !== "") {
             setTodos((oldTodos) => {
                 if (oldTodos) {
+                    order = oldTodos.length
                     return [...oldTodos, {
                         id: Math.random().toString(36).substring(2, 9),
-                        order: oldTodos.length,
+                        order,
                         task: task.current!.value,
                         completed: false,
                         userId: "1"
@@ -22,7 +24,7 @@ const Input: React.FC = () => {
                     ]
                 } else return [];
             })
-            const response: { success: boolean, data?: TodoType } = await createTodo(task.current.value);
+            const response: { success: boolean, data?: TodoType } = await createTodo(task.current.value, order);
             if (response.success) {
                 const newTodo: TodoType = response.data!;
                 setTodos((oldTodos) => {

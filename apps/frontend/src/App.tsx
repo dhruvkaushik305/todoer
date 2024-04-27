@@ -5,10 +5,8 @@ import SignupLayout from "./components/Auth/SignupLayout";
 import LandingLayout from "./components/Landing/LandingLayout";
 import LoginLayout from "./components/Auth/LoginLayout";
 import { Toaster } from "sonner";
-import useAuth from "./hooks/useAuth";
 import HomeLayout from "./components/Home/HomeLayout";
 function App() {
-  useAuth();
   return (
     <div>
       <Toaster />

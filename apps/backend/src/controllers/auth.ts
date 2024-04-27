@@ -87,7 +87,6 @@ export const userIsLogged = (req: userRequest, res: Response) => {
 };
 export const logout = (req: Request, res: Response) => {
   if (req.cookies.authorization) {
-    //remove the cookie
     res.clearCookie("authorization");
     res.status(200).json({ success: true, message: "Cookie removed" });
   } else {

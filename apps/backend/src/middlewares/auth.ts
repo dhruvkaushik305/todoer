@@ -17,13 +17,16 @@ const authenticateUser = async (
     if (!req.cookies.authorization) {
       return res
         .status(401)
-        .json({ success: false, error: "Unauthorized, No access token found" });
+        .json({ success: false, error: "Unauthorized, no access token found" });
     }
     const token = req.cookies.authorization.split(" ")[1];
     if (!token) {
       return res
         .status(401)
-        .json({ success: false, error: "Unauthorized, No access token found" });
+        .json({
+          success: false,
+          error: "Unauthorized, Invalid format of access token",
+        });
     }
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET not found. Did you set up the ENV?");

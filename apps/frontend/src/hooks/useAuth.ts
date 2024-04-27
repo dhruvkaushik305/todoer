@@ -4,32 +4,22 @@ import { useSetRecoilState } from "recoil";
 import { userData } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { isLoggedIn } from "../actions/userActions";
 
 const useAuth = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userData);
   useEffect(() => {
     const getUser = async () => {
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_BACKEND}/auth/isLogged`,
-          {
-            credentials: "include",
-          }
-        );
-        const response: { success: boolean; data: UserType } = await res.json();
-        if (response.success) {
-          setUser(response.data);
-          toast.success(`Welcome back ${response.data.name}`);
-          navigate("/home");
-        } else {
-          setUser(null);
-          toast.error("Please login to continue");
-          navigate("/auth/login");
-        }
-      } catch (err) {
-        console.error(err);
-        setUser(null);
+      const response: { success: boolean; data?: UserType } =
+        await isLoggedIn();
+      if (response.success) {
+        setUser(response.data!);
+        toast.success(`Welcome back ${response.data!.name}`);
+        navigate("/home");
+      } else {
+        toast.error("Please login to continue");
+        navigate("/auth/login");
       }
     };
     getUser();

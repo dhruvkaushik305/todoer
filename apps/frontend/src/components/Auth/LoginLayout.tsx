@@ -25,7 +25,7 @@ const LoginLayout: React.FC = () => {
             if (result.success) {
                 setUser(result.data);
                 toast.success(`Welcome back ${result.data.name.split(' ')[0]}`)
-                navigate('/dashboard');
+                navigate('/home');
             }
             else {
                 toast.error(result.error);

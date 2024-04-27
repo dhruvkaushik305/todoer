@@ -21,7 +21,7 @@ const useAuth = () => {
         if (response.success) {
           setUser(response.data);
           toast.success(`Welcome back ${response.data.name}`);
-          navigate("/dashboard");
+          navigate("/home");
         } else {
           setUser(null);
           toast.error("Please login to continue");

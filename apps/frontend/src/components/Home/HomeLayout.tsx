@@ -2,9 +2,9 @@ import React from "react";
 import NavigationSectionLayout from "./NavigationSection/NavigationSectionLayout";
 import TodoSectionLayout from "./TodoSection/TodoSectionLayout";
 import SocialSectionLayout from "./SocialsSection/SocialSectionLayout";
-import useAuth from "../../hooks/useAuth";
+import useHomeAuth from "../../hooks/useHomeAuth";
 const HomeLayout: React.FC = () => {
-  useAuth();
+  useHomeAuth();
   return <div className="flex h-full w-full">
     <NavigationSectionLayout />
     <TodoSectionLayout />

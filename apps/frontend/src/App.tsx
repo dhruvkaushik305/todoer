@@ -6,7 +6,9 @@ import LandingLayout from "./components/Landing/LandingLayout";
 import LoginLayout from "./components/Auth/LoginLayout";
 import { Toaster } from "sonner";
 import HomeLayout from "./components/Home/HomeLayout";
+import useAuth from "./hooks/useAuth";
 function App() {
+  useAuth();
   return (
     <div>
       <Toaster />

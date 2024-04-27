@@ -8,18 +8,18 @@ const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userData);
   return (
-    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center">
-      <div className="md:text-4xl text-3xl text-offWhite font-Pacifico">
-        Todo Link
+    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center border-b-2 border-gray-700">
+      <div className="md:text-4xl text-3xl text-white font-Pacifico">
+        Todoer
       </div>
       {user === null ? (<div className="flex justify-between gap-3">
         <button
-          className="md:text-xl font-Sriracha text-lg bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg"
+          className="md:text-xl text-lg bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg"
           onClick={() => navigate("/auth/signup")}
         >
           Signup
         </button>
-        <button className="md:text-xl text-lg bg-blue font-Sriracha text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={() => navigate("/auth/login")}>
+        <button className="md:text-xl text-lg bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={() => navigate("/auth/login")}>
           Login
         </button>
       </div>) : (<div>

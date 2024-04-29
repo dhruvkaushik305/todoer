@@ -47,10 +47,10 @@ const Input: React.FC = () => {
             task.current.value = "";
         }
     }
-    return <div className=" p-2">
+    return <div className="bg-sky-200 p-2 border-t-2 border-gray-400">
         <form className="flex gap-2" onSubmit={handleAddTodo}>
             <input type="text" placeholder="What're you doing today?" className="p-2 rounded-md w-full focus:outline-none text-xl border-2" ref={task} />
-            <button className="p-2 px-3 text-white rounded-md transition ease-in-out bg-black hover:bg-gray-700 hover:scale-90 duration-700">Add</button>
+            <button className="p-2 px-3 text-white rounded-md transition ease-in-out bg-black hover:bg-gray-700 hover:scale-90 duration-700 text-nowrap">Add Task</button>
         </form>
     </div>;
 }

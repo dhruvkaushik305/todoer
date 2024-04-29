@@ -31,7 +31,7 @@ const Display: React.FC = () => {
         }, 2000);
     }
     return (
-        <div className="h-full bg-gray-200 p-5 flex flex-col gap-2">
+        <div className="h-full bg-sky-200 p-5 flex flex-col gap-2 border-l-2 border-r-2 border-gray-400">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
                     {todos.length === 0 && <div className="text-center text-2xl">No tasks yet</div>}

@@ -81,15 +81,27 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
             toast.error("Failed to update todo");
         }
     }
-    return <div key={todo.id} className='flex items-center gap-2 bg-fuchsia-300 rounded-lg p-2 w-full'  {...attributes} ref={setNodeRef} style={style}>
-        <GoGrabber className='size-7 text-black cursor-grab' {...listeners} />
-        <label className='flex items-center gap-2'>
-            <input type='checkbox' checked={todo.completed} className='size-4' onChange={markAsCompleted} />
-            <input className='text-xl w-full p-2 rounded-md' defaultValue={todo.task} disabled ref={editRef} />
+    const keyboardHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key == "Enter") {
+            editTodoOutput();
+        }
+        if (event.key == "Escape") {
+            editRef.current!.disabled = true;
+            setEdit(false);
+        }
+        if (event.key == "Delete") {
+            deleteHandler();
+        }
+    }
+    return <div key={todo.id} className='flex items-center gap-3 bg-sky-300 rounded-lg p-2'  {...attributes} ref={setNodeRef} style={style}>
+        <GoGrabber className='size-8 text-black cursor-grab' {...listeners} />
+        <label className='flex items-center gap-3 grow'>
+            <input type='checkbox' checked={todo.completed} className='size-5' onChange={markAsCompleted} />
+            <input className='text-xl w-full p-2 rounded-md' defaultValue={todo.task} disabled ref={editRef} onKeyDown={keyboardHandler} />
         </label>
-        <div className='flex gap-2'>
-            {edit ? (<IoMdCheckmark onClick={editTodoOutput} />) : (<CiEdit onClick={editTodoInput} />)}
-            <TiDeleteOutline className='cursor-pointer' onClick={deleteHandler} />
+        <div className='flex gap-4 items-center'>
+            {edit ? (<IoMdCheckmark onClick={editTodoOutput} className='size-6' />) : (<CiEdit onClick={editTodoInput} className='size-6' />)}
+            <TiDeleteOutline className='cursor-pointer size-6' onClick={deleteHandler} />
         </div>
     </div>
 

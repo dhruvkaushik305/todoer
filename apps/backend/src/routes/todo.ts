@@ -9,10 +9,11 @@ import {
 } from "../controllers/todo";
 import authenticateUser from "../middlewares/auth";
 const router = express.Router();
-router.post("/create", authenticateUser, create);
-router.get("/read", authenticateUser, read);
-router.patch("/updateStatus", authenticateUser, updateStatus);
-router.patch("/updateTodo", authenticateUser, updateTodo);
-router.patch("/updateOrder/:id", authenticateUser, updateOrder);
-router.delete("/delete/:id", authenticateUser, remove);
+router.use(authenticateUser);
+router.post("/create", create);
+router.get("/read", read);
+router.patch("/updateStatus", updateStatus);
+router.patch("/updateTodo", updateTodo);
+router.patch("/updateOrder/:id", updateOrder);
+router.delete("/delete/:id", remove);
 export default router;

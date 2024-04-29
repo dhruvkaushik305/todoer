@@ -36,3 +36,31 @@ export const searchUsers = async (
     next(err);
   }
 };
+export const getUser = async (
+  req: userRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Incomplete request" });
+  }
+  try {
+    const user = await db.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        todos: true,
+      },
+    });
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    return res.status(200).json({ success: true, todos: user.todos });
+  } catch (err) {
+    next(err);
+  }
+};

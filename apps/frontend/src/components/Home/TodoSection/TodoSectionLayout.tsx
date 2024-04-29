@@ -8,7 +8,7 @@ const TodoSectionLayout: React.FC = () => {
     const user = useRecoilValue(userData);
     if (!user) return null;
     useGetTodos();
-    return <div className="w-1/3 bg-white flex flex-col">
+    return <div className="w-1/3 flex flex-col">
         <Display />
         <Input />
     </div>;

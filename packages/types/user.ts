@@ -8,3 +8,8 @@ export type UserType = {
   password: string;
   joinedAt: Date;
 };
+export type SearchedUser = {
+  id: string;
+  username: string;
+  name: string;
+};

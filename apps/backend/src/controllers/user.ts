@@ -26,6 +26,8 @@ export const searchUsers = async (
         name: true,
       },
     });
+    console.log("The query was", query.toString());
+    // console.log(users, "found for", query.toString());
     if (users.length === 0) {
       return res
         .status(404)

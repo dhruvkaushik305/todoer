@@ -5,7 +5,6 @@ export type UserType = {
   name: string;
   email: string;
   username: string;
-  password: string;
   joinedAt: Date;
 };
 export type SearchedUser = {

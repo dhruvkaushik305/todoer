@@ -15,7 +15,7 @@ import selectedUserAtom from '../../../store/user';
 const Todo: React.FC<{ todo: TodoType }> = (props) => {
     const user = useRecoilValue(userData);
     const selectedUser = useRecoilValue(selectedUserAtom);
-    const activeUser = selectedUser!.id === user!.id;
+    const activeUser = selectedUser?.id === user?.id;
     // const activeUser = false;
     const { todo } = props;
     const [edit, setEdit] = useState(false);

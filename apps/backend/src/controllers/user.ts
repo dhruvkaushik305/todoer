@@ -60,7 +60,7 @@ export const getUser = async (
     if (!user)
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "No users found with the given id" });
     return res.status(200).json({ success: true, todos: user.todos });
   } catch (err) {
     next(err);

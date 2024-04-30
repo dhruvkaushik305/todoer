@@ -1,8 +1,10 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import todoAtom from "../store/todo";
+import selectedUserAtom from "../store/user";
 
 const useGetTodos = () => {
+  const selectedUser = useRecoilValue(selectedUserAtom);
   const setTodos = useSetRecoilState(todoAtom);
   useEffect(() => {
     const fetchTodos = async () => {
@@ -16,6 +18,6 @@ const useGetTodos = () => {
       }
     };
     fetchTodos();
-  });
+  }, [selectedUser]);
 };
 export default useGetTodos;

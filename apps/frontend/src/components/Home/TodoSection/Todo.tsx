@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { GoGrabber } from "react-icons/go";
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { TodoType } from '@repo/types/Todo';
@@ -10,7 +10,13 @@ import { IoMdCheckmark } from "react-icons/io";
 import { toast } from 'sonner';
 import { deleteTodo, editState, editTodo } from '../../../actions/todoActions';
 import todoAtom from '../../../store/todo';
+import { userData } from '../../../store/auth';
+import selectedUserAtom from '../../../store/user';
 const Todo: React.FC<{ todo: TodoType }> = (props) => {
+    const user = useRecoilValue(userData);
+    const selectedUser = useRecoilValue(selectedUserAtom);
+    const activeUser = selectedUser!.id === user!.id;
+    // const activeUser = false;
     const { todo } = props;
     const [edit, setEdit] = useState(false);
     const setTodos = useSetRecoilState<TodoType[]>(todoAtom);
@@ -31,7 +37,7 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
         setNodeRef,
         transform,
         transition,
-    } = useSortable({ id: todo.id });
+    } = useSortable({ id: todo.id, disabled: !activeUser });
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
@@ -94,15 +100,16 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
         }
     }
     return <div key={todo.id} className='flex items-center gap-3 bg-sky-300 rounded-lg p-2'  {...attributes} ref={setNodeRef} style={style}>
-        <GoGrabber className='size-8 text-black cursor-grab' {...listeners} />
+        {activeUser && <GoGrabber className='size-8 text-black cursor-grab' {...listeners} />}
         <label className='flex items-center gap-3 grow'>
-            <input type='checkbox' checked={todo.completed} className='size-5' onChange={markAsCompleted} />
+            <input type='checkbox' checked={todo.completed} className='size-5' onChange={markAsCompleted} disabled={!activeUser} />
             <input className='text-xl w-full p-2 rounded-md' defaultValue={todo.task} disabled ref={editRef} onKeyDown={keyboardHandler} />
         </label>
-        <div className='flex gap-4 items-center'>
+        {activeUser && <div className='flex gap-4 items-center'>
             {edit ? (<IoMdCheckmark onClick={editTodoOutput} className='size-6' />) : (<CiEdit onClick={editTodoInput} className='size-6' />)}
             <TiDeleteOutline className='cursor-pointer size-6' onClick={deleteHandler} />
-        </div>
+        </div>}
+
     </div>
 
 

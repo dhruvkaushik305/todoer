@@ -12,21 +12,23 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model User{
-  id String @id @default(uuid())
-  name String
-  email String @unique
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
   password String
-  username String @unique
+  username String   @unique
   joinedAt DateTime @default(now())
-  todos Todo[]
+  todos    Todo[]
 }
-model Todo{
-  id String @id @default(uuid())
-  order Int
-  task String
-  completed Boolean @default(false)
-  userId String
-  user User @relation(fields: [userId], references: [id])
+
+model Todo {
+  id        String   @id @default(uuid())
+  order     Int
+  task      String
+  completed Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }

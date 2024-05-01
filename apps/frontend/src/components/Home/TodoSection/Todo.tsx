@@ -48,7 +48,6 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
         setTodos((oldTodos) => oldTodos?.map((oldTodo) => {
             if (oldTodo.id === todo.id) {
                 state = !oldTodo.completed;
-                console.log("The todo should be", state);
                 return { ...oldTodo, completed: !oldTodo.completed }
             } else return oldTodo
         }))

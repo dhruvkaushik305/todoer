@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useRecoilState } from "recoil";
 import Todo from "./Todo";
 import { DndContext, closestCorners } from "@dnd-kit/core";
@@ -8,7 +8,7 @@ import { editOrder } from "../../../actions/todoActions";
 import { toast } from "sonner";
 import todoAtom from "../../../store/todo";
 const Display: React.FC = () => {
-    let timeout: NodeJS.Timeout | undefined;
+    let timeout = useRef<NodeJS.Timeout>();
     const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
     const dragHandler = (event: any) => {
         const { active, over } = event;
@@ -18,8 +18,8 @@ const Display: React.FC = () => {
         setTodos(() => {
             return arrayMove(todos, oldIndex, newIndex)
         });
-        clearTimeout(timeout);
-        timeout = setTimeout(async () => {
+        clearTimeout(timeout.current);
+        timeout.current = setTimeout(async () => {
             const update1 = editOrder(active.id, newIndex);
             const update2 = editOrder(over.id, oldIndex);
             await Promise.all([update1, update2]).then(() => {

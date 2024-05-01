@@ -13,7 +13,6 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
         timeout = setTimeout(async () => {
             if (inputRef.current && inputRef.current.value !== "") {
                 const response = await SearchUser(inputRef.current.value);
-                console.log(response);
                 if (response.success) {
                     setUsers(response.data!);
                 } else {

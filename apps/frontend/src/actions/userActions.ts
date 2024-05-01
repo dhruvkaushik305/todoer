@@ -36,12 +36,10 @@ export const SearchUser = async (username: string) => {
 };
 export const getUser = async (id: string) => {
   try {
-    console.log("Going to fetch");
     const res = await fetch(`${import.meta.env.VITE_BACKEND}/user/${id}`, {
       credentials: "include",
     });
     const response: { success: boolean; todos?: TodoType[] } = await res.json();
-    console.log(response);
     return response;
   } catch (err) {
     console.error("Error while fetching the user", err);

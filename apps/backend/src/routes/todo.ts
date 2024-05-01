@@ -11,7 +11,7 @@ import authenticateUser from "../middlewares/auth";
 const router = express.Router();
 router.use(authenticateUser);
 router.post("/create", create);
-router.get("/read", read);
+router.get("/read/:id", read);
 router.patch("/updateStatus", updateStatus);
 router.patch("/updateTodo", updateTodo);
 router.patch("/updateOrder/:id", updateOrder);

@@ -33,10 +33,11 @@ export const read = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { id } = req.params;
   try {
     const todos = await db.todo.findMany({
       where: {
-        userId: req.user?.id,
+        userId: id,
       },
       select: {
         id: true,

@@ -1,14 +1,15 @@
-import { SearchedUser } from "@repo/types/User";
+import { UserType } from "@repo/types/User";
 import React from "react";
-import { getUser } from "../../../actions/userActions";
-import Display from "./Display";
+import { useSetRecoilState } from "recoil";
+import selectedUserAtom from "../../../store/user";
 interface UserProps {
-    user: SearchedUser;
+    user: UserType;
 }
 const User: React.FC<UserProps> = (props) => {
+    const setSelectedUser = useSetRecoilState(selectedUserAtom);
     const { user } = props;
     const handleClick = async () => {
-        const response = await getUser(user.id);
+        setSelectedUser(user);
     }
     return <div className="bg-gray-200 m-2 p-4 rounded-md cursor-pointer" onClick={handleClick}>
         <p className="text-2xl">{user.name}</p>

@@ -1,8 +1,8 @@
 import React from "react";
 import { SearchUser } from "../../../actions/userActions";
-import { SearchedUser } from "@repo/types/User";
+import { UserType } from "@repo/types/User";
 interface SearchBarProps {
-    setUsers: React.Dispatch<React.SetStateAction<SearchedUser[]>>;
+    setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;
 }
 let timeout: NodeJS.Timeout | undefined;
 const SearchBar: React.FC<SearchBarProps> = (props) => {

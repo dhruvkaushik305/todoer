@@ -8,12 +8,13 @@ import selectedUserAtom from "../../../store/user";
 const TodoSectionLayout: React.FC = () => {
     const user = useRecoilValue(userData);
     const selectedUser = useRecoilValue(selectedUserAtom);
+    console.log("The selected user is ", selectedUser);
+    //TODO: test if this is necessary
     if (!user) return null;
     useGetTodos();
     return <div className="w-1/3 flex flex-col">
         <Display />
         {selectedUser?.id === user.id && <Input />}
-
     </div>;
 }
 export default TodoSectionLayout;

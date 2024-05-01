@@ -1,5 +1,5 @@
 import { TodoType } from "@repo/types/Todo";
-import { SearchedUser, UserType } from "@repo/types/User";
+import { UserType } from "@repo/types/User";
 
 export const isLoggedIn = async () => {
   try {
@@ -26,23 +26,10 @@ export const SearchUser = async (username: string) => {
         credentials: "include",
       }
     );
-    const response: { success: boolean; data?: SearchedUser[] } =
-      await res.json();
+    const response: { success: boolean; data?: UserType[] } = await res.json();
     return response;
   } catch (err) {
     console.error("Error while searching for the user", err);
-    return { success: false };
-  }
-};
-export const getUser = async (id: string) => {
-  try {
-    const res = await fetch(`${import.meta.env.VITE_BACKEND}/user/${id}`, {
-      credentials: "include",
-    });
-    const response: { success: boolean; todos?: TodoType[] } = await res.json();
-    return response;
-  } catch (err) {
-    console.error("Error while fetching the user", err);
     return { success: false };
   }
 };

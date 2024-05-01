@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Todo from "./Todo";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
@@ -7,9 +7,13 @@ import { TodoType } from "@repo/types/Todo";
 import { editOrder } from "../../../actions/todoActions";
 import { toast } from "sonner";
 import todoAtom from "../../../store/todo";
+import selectedUserAtom from "../../../store/user";
 const Display: React.FC = () => {
+    const selectedUser = useRecoilValue(selectedUserAtom);
+    console.log("The selected user at Display is ", selectedUser);
     let timeout = useRef<NodeJS.Timeout>();
     const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
+    console.log("The todos are ", todos);
     const dragHandler = (event: any) => {
         const { active, over } = event;
         if (active.id === over.id) return;
@@ -30,6 +34,7 @@ const Display: React.FC = () => {
             })
         }, 2000);
     }
+    if (!selectedUser) return null;
     return (
         <div className="h-full bg-sky-200 p-5 flex flex-col gap-2 border-l-2 border-r-2 border-gray-400">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>

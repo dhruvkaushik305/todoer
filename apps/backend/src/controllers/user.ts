@@ -4,6 +4,7 @@ import db from "@repo/db/prisma";
 interface userRequest extends Request {
   user?: UserType;
 }
+//TODO: Should not return the user itself
 export const searchUsers = async (
   req: userRequest,
   res: Response,
@@ -20,11 +21,6 @@ export const searchUsers = async (
       where: {
         username: { contains: query.toString() },
       },
-      select: {
-        id: true,
-        username: true,
-        name: true,
-      },
     });
     if (users.length === 0) {
       return res
@@ -32,34 +28,6 @@ export const searchUsers = async (
         .json({ success: false, message: "No users found" });
     }
     return res.status(200).json({ success: true, data: users });
-  } catch (err) {
-    next(err);
-  }
-};
-export const getUser = async (
-  req: userRequest,
-  res: Response,
-  next: NextFunction
-) => {
-  const { id } = req.params;
-  if (!id) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Incomplete request" });
-  }
-  try {
-    const user = await db.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        todos: true,
-      },
-    });
-    if (!user)
-      return res
-        .status(404)
-        .json({ success: false, message: "No users found with the given id" });
-    return res.status(200).json({ success: true, todos: user.todos });
   } catch (err) {
     next(err);
   }

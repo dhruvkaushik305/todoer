@@ -1,8 +1,8 @@
 import React from "react";
 import User from "./User";
-import { SearchedUser } from "@repo/types/User";
+import { UserType } from "@repo/types/User";
 interface DisplayProps {
-    users: SearchedUser[];
+    users: UserType[];
 }
 const Display: React.FC<DisplayProps> = (props) => {
     const { users } = props;

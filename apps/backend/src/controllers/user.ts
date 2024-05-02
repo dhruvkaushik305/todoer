@@ -17,9 +17,11 @@ export const searchUsers = async (
       .json({ success: false, message: "Incomplete request" });
   }
   try {
+    //remove the user from the search results
     const users = await db.user.findMany({
       where: {
         username: { contains: query.toString() },
+        NOT: { id: req.user?.id },
       },
     });
     if (users.length === 0) {

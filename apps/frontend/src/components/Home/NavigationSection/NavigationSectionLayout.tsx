@@ -1,18 +1,8 @@
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import selectedUserAtom from "../../../store/user";
-import { userData } from "../../../store/auth";
+import UserProfile from "./UserProfile";
 const NavigationSectionLayout: React.FC = () => {
-    const currentUser = useRecoilValue(userData);
-    const setSelectedUser = useSetRecoilState(selectedUserAtom);
-    const myTodosHandler = () => {
-        setSelectedUser(currentUser);
-    }
-    return <div className="w-1/3 bg-white p-3">
-        <div className="p-5 bg-gray-300 rounded-md cursor-pointer" onClick={myTodosHandler}>
-            <p className="text-2xl">{currentUser?.name}</p>
-            <p>{`@${currentUser?.username}`}</p>
-        </div>
+    return <div className="w-1/3 bg-black/60 p-3 border-r border-gray-500 flex flex-col-reverse">
+        <UserProfile />
     </div>;
 }
 export default NavigationSectionLayout;

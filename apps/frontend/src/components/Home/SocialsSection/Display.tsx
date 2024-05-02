@@ -6,7 +6,7 @@ interface DisplayProps {
 }
 const Display: React.FC<DisplayProps> = (props) => {
     const { users } = props;
-    return <div>
+    return <div className="grow">
         {users.map((user) => <User key={user.id} user={user} />)}
     </div>
 }

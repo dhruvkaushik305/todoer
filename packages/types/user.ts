@@ -1,5 +1,3 @@
-import { TodoType } from "./todo";
-
 export type UserType = {
   id: string;
   name: string;

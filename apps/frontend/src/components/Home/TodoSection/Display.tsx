@@ -8,12 +8,12 @@ import { editOrder } from "../../../actions/todoActions";
 import { toast } from "sonner";
 import todoAtom from "../../../store/todo";
 import selectedUserAtom from "../../../store/user";
+import useGetTodos from "../../../hooks/useGetTodos";
 const Display: React.FC = () => {
-    const selectedUser = useRecoilValue(selectedUserAtom);
-    console.log("The selected user at Display is ", selectedUser);
+    useGetTodos();
     let timeout = useRef<NodeJS.Timeout>();
+    const selectedUser = useRecoilValue(selectedUserAtom);
     const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
-    console.log("The todos are ", todos);
     const dragHandler = (event: any) => {
         const { active, over } = event;
         if (active.id === over.id) return;
@@ -34,6 +34,7 @@ const Display: React.FC = () => {
             })
         }, 2000);
     }
+    //TODO: If no user is selected, show feed
     if (!selectedUser) return null;
     return (
         <div className="h-full bg-sky-200 p-5 flex flex-col gap-2 border-l-2 border-r-2 border-gray-400">

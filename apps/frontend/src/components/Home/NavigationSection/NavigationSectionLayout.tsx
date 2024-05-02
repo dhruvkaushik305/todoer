@@ -1,20 +1,18 @@
-import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import React from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import selectedUserAtom from "../../../store/user";
 import { userData } from "../../../store/auth";
 const NavigationSectionLayout: React.FC = () => {
     const currentUser = useRecoilValue(userData);
-    // const setSelectedUser = useSetRecoilState(selectedUserAtom);
-    const [selectedUser, setSelectedUser] = useRecoilState(selectedUserAtom);
-    console.log(currentUser);
+    const setSelectedUser = useSetRecoilState(selectedUserAtom);
     const myTodosHandler = () => {
         setSelectedUser(currentUser);
     }
-    useEffect(() => {
-        console.log(selectedUser);
-    }, [selectedUser]);
-    return <div className="w-1/3 bg-white">
-        <button className="px-3 py-2 bg-black text-white rounded-md" onClick={myTodosHandler}>My todos</button>
+    return <div className="w-1/3 bg-white p-3">
+        <div className="p-5 bg-gray-300 rounded-md cursor-pointer" onClick={myTodosHandler}>
+            <p className="text-2xl">{currentUser?.name}</p>
+            <p>{`@${currentUser?.username}`}</p>
+        </div>
     </div>;
 }
 export default NavigationSectionLayout;

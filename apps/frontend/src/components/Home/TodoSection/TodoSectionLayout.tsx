@@ -7,7 +7,7 @@ import selectedUserAtom from "../../../store/user";
 const TodoSectionLayout: React.FC = () => {
     const user = useRecoilValue(userData);
     const selectedUser = useRecoilValue(selectedUserAtom);
-    return <div className="w-1/3 flex flex-col">
+    return <div className="w-2/4 flex flex-col bg-black/60">
         <Display />
         {selectedUser?.id === user?.id && <Input />}
     </div>;

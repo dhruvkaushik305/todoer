@@ -37,7 +37,7 @@ const Display: React.FC = () => {
     //TODO: If no user is selected, show feed
     if (!selectedUser) return null;
     return (
-        <div className="h-full bg-sky-200 p-5 flex flex-col gap-2 border-l-2 border-r-2 border-gray-400">
+        <div className="h-full p-5 flex flex-col gap-2">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
                     {todos.length === 0 && <div className="text-center text-2xl">No tasks yet</div>}

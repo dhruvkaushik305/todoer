@@ -97,15 +97,15 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
             deleteHandler();
         }
     }
-    return <div key={todo.id} className='flex items-center gap-3 bg-sky-300 rounded-lg p-2'  {...attributes} ref={setNodeRef} style={style}>
-        {activeUser && <GoGrabber className='size-8 text-black cursor-grab' {...listeners} />}
+    return <div key={todo.id} className='flex items-center gap-3 bg-gray-800 rounded-lg p-2  border border-gray-800 hover:border-2 hover:border-gray-400 transition duration-75'  {...attributes} ref={setNodeRef} style={style}>
+        {activeUser && <GoGrabber className='size-8 text-white rounded-md cursor-grab' {...listeners} />}
         <label className='flex items-center gap-3 grow'>
             <input type='checkbox' checked={todo.completed} className='size-5' onChange={markAsCompleted} disabled={!activeUser} />
-            <input className='text-xl w-full p-2 rounded-md' defaultValue={todo.task} disabled ref={editRef} onKeyDown={keyboardHandler} />
+            <input className='text-xl w-full p-2 rounded-md text-gray-100 bg-gray-700 focus:outline-none' defaultValue={todo.task} disabled ref={editRef} onKeyDown={keyboardHandler} />
         </label>
         {activeUser && <div className='flex gap-4 items-center'>
-            {edit ? (<IoMdCheckmark onClick={editTodoOutput} className='size-6' />) : (<CiEdit onClick={editTodoInput} className='size-6' />)}
-            <TiDeleteOutline className='cursor-pointer size-6' onClick={deleteHandler} />
+            {edit ? (<IoMdCheckmark onClick={editTodoOutput} className='size-6 text-white hover:text-green-500' />) : (<CiEdit onClick={editTodoInput} className='size-6 text-gray-300 hover:text-green-500' />)}
+            <TiDeleteOutline className='cursor-pointer size-6 text-gray-300 hover:text-red-500' onClick={deleteHandler} />
         </div>}
 
     </div>

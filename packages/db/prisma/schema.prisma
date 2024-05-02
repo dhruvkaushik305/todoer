@@ -21,8 +21,8 @@ model User {
   username  String   @unique
   joinedAt  DateTime @default(now())
   todos     Todo[]
-  following User[]   @relation("UserToUser")
-  followers User[]   @relation("UserToUser")
+  following Follow[] @relation("followings")
+  followers Follow[] @relation("followers")
 }
 
 model Todo {
@@ -33,4 +33,13 @@ model Todo {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  followerId  String
+  followingId String
+  follower    User     @relation("followers", fields: [followerId], references: [id])
+  following   User     @relation("followings", fields: [followingId], references: [id])
+  createdAt   DateTime @default(now())
 }

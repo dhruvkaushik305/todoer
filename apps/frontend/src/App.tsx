@@ -7,6 +7,7 @@ import LoginLayout from "./components/Auth/LoginLayout";
 import { Toaster } from "sonner";
 import HomeLayout from "./components/Home/HomeLayout";
 import useAuth from "./hooks/useAuth";
+import TestingLayout from "./components/Testing/TestingLayout";
 function App() {
   useAuth();
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/auth/signup" element={<SignupLayout />} />
           <Route path="/auth/login" element={<LoginLayout />} />
           <Route path="/home" element={<HomeLayout />} />
+          <Route path="/testing" element={<TestingLayout />} />
         </Routes>
       </div>
     </div>

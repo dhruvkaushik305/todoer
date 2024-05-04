@@ -14,7 +14,7 @@ function App() {
     <div>
       <Toaster />
       <NavbarLayout />
-      <div className="pt-[4rem] h-screen w-screen bg-gradient-to-b from-black via-darkBlue to-navyBlue flex justify-center items-center">
+      <div className="pt-[4rem] h-screen w-screen bg-black flex justify-center items-center">
         <Routes>
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />

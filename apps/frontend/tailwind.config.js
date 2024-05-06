@@ -14,6 +14,7 @@ export default {
         Pacifico: ["Pacifico", "cursive"],
         Lobster: ["Lobster", "sans-serif"],
         Sriracha: ["Sriracha", "cursive"],
+        ArchivoBlack: ["Archivo Black", "sans-serif"],
       },
     },
   },

@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import { userData } from '../../store/auth';
 import { GrFormViewHide } from "react-icons/gr";
 import { GrFormView } from "react-icons/gr";
-import { Login } from '../../actions/authAction';
+import { loginAction } from '../../actions/authAction';
 const LoginComponent: React.FC = () => {
     const setUser = useSetRecoilState(userData);
     const [showPassword, setShowPassword] = React.useState(false);
@@ -16,7 +16,7 @@ const LoginComponent: React.FC = () => {
     const { handleSubmit, register } = useForm<LoginInput>({ resolver: zodResolver(LoginSchema) });
     const onSubmit: SubmitHandler<LoginInput> = async (data) => {
         try {
-            const result = await Login(data);
+            const result = await loginAction(data);
             if (result.success) {
                 setUser(result.data!);
                 toast.success(`Welcome back ${result.data!.name.split(' ')[0]}`)
@@ -31,8 +31,8 @@ const LoginComponent: React.FC = () => {
             toast.error("Something went wrong")
         }
     }
-    return <div className='p-3 md:p-5 rounded-lg text-zinc-200 border border-gray-600 w-10/12 h-5/6 flex gap-2 items-center'>
-        <div className='font-Khand font-bold text-center xl:text-9xl hidden lg:text-8xl lg:flex lg:flex-col justify-center leading-[8rem] items-start w-1/2 p-3 border-r border-gray-600 h-full'>
+    return <div className='p-3 md:p-5 rounded-lg text-zinc-200 border border-gray-800 w-10/12 h-5/6 flex gap-2 items-center'>
+        <div className='font-Khand font-bold text-center xl:text-9xl hidden lg:text-8xl lg:flex lg:flex-col justify-center leading-[8rem] items-start w-1/2 p-3 border-r border-gray-800 h-full'>
             <p>Good</p>
             <p className='text-blue underline'>Things</p>
             <p>Are</p>

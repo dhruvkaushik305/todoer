@@ -6,7 +6,7 @@ import { GrFormView } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { SignupInput, SignupSchema } from "@repo/types/Signup"
 import { toast } from "sonner";
-import { checkUsername } from "../../actions/authAction";
+import { signupAction, checkUsernameAction } from "../../actions/authAction";
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupComponent: React.FC = () => {
   const [exists, setExists] = React.useState(false);
@@ -20,15 +20,8 @@ const SignupComponent: React.FC = () => {
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
     if (exists) return;
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
-      const result = await response.json();
-      if (result.success) {
+      const response = await signupAction(data);
+      if (response.success) {
         toast.success("Account created, let's login");
         navigate("/auth/login");
       }
@@ -42,7 +35,7 @@ const SignupComponent: React.FC = () => {
     clearTimeout(timeout);
     if (username === "" || username === undefined) setExists(false);
     timeout = setTimeout(async () => {
-      const data = await checkUsername(username);
+      const data = await checkUsernameAction(username);
       if (data.exists) {
         setExists(true);
       } else {
@@ -51,8 +44,8 @@ const SignupComponent: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-600 h-5/6 items-center lg:w-10/12 w-11/12">
-      <div className="font-Khand font-bold xl:text-9xl lg:text-7xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden border-r border-gray-600">
+    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-800 h-5/6 items-center lg:w-10/12 w-11/12">
+      <div className="font-Khand font-bold xl:text-9xl lg:text-7xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden border-r border-gray-800">
         <p>Today's <span className="text-blue underline">Tasks,</span></p>
         <p>Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>

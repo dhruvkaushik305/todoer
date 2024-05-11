@@ -8,7 +8,7 @@ import { SignupInput, SignupSchema } from "@repo/types/Signup"
 import { toast } from "sonner";
 import { checkUsername } from "../../actions/authAction";
 let timeout: NodeJS.Timeout | undefined = undefined;
-const SignupLayout: React.FC = () => {
+const SignupComponent: React.FC = () => {
   const [exists, setExists] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
@@ -51,10 +51,10 @@ const SignupLayout: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-700 h-5/6 items-center lg:w-10/12 w-11/12">
-      <div className="font-khand font-extrabold xl:text-8xl lg:text-6xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden">
-        <p className="text-left">Today's <span className="text-blue underline">Tasks,</span></p>
-        <p className="text-left">Tomorrow's </p>
+    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-600 h-5/6 items-center lg:w-10/12 w-11/12">
+      <div className="font-Khand font-bold xl:text-9xl lg:text-7xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden border-r border-gray-600">
+        <p>Today's <span className="text-blue underline">Tasks,</span></p>
+        <p>Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>
       </div>
       <div className="p-1 rounded-md w-full">
@@ -123,16 +123,16 @@ const SignupLayout: React.FC = () => {
             <label htmlFor="password" className="text-xl">
               Password
             </label>
-            <div className="flex justify-between gap-1">
+            <div className="flex justify-between gap-1 rounded-md bg-white p-1">
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 id="password"
                 {...register("password")}
-                className="focus:outline-none p-2 rounded-md text-lg text-black w-full"
+                className="focus:outline-none p-1 text-lg text-black w-full"
               />
-              <div onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? (<GrFormView className="size-10" />) : (<GrFormViewHide className="size-10" />)}
+              <div onClick={() => setShowPassword(!showPassword)} className="cursor-pointer">
+                {showPassword ? (<GrFormView className="size-10 text-black" />) : (<GrFormViewHide className="size-10 text-black" />)}
               </div>
             </div>
             {errors.password && (
@@ -153,4 +153,4 @@ const SignupLayout: React.FC = () => {
   );
 };
 
-export default SignupLayout;
+export default SignupComponent;

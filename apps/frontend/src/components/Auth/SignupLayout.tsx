@@ -1,13 +1,16 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import eyeIcon from "../../assets/hidden.png";
+import { GrFormViewHide } from "react-icons/gr";
+import { GrFormView } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { SignupInput, SignupSchema } from "@repo/types/Signup"
 import { toast } from "sonner";
+import { checkUsername } from "../../actions/authAction";
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -35,21 +38,11 @@ const SignupLayout: React.FC = () => {
       toast.error("Something went wrong");
     }
   };
-  const checkUsername = async (username: string) => {
+  const usernameHandler = async (username: string) => {
     clearTimeout(timeout);
-    if (username === "") return;
+    if (username === "" || username === undefined) setExists(false);
     timeout = setTimeout(async () => {
-      const encodedUsername = encodeURIComponent(username);
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND}/auth/checkUsername/${encodedUsername}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await res.json();
+      const data = await checkUsername(username);
       if (data.exists) {
         setExists(true);
       } else {
@@ -58,13 +51,13 @@ const SignupLayout: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="p-5 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-700 h-5/6 items-center w-4/6">
-      <div className="font-serif font-extrabold text-8xl w-3/6 flex flex-col justify-center items-start text-left p-3 leading-[7rem] h-full">
+    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-700 h-5/6 items-center lg:w-10/12 w-11/12">
+      <div className="font-khand font-extrabold xl:text-8xl lg:text-6xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden">
         <p className="text-left">Today's <span className="text-blue underline">Tasks,</span></p>
         <p className="text-left">Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>
       </div>
-      <div className="p-8 rounded-md w-full">
+      <div className="p-1 rounded-md w-full">
         <p className="text-4xl text-center mb-[2rem] font-sans">Join today</p>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full">
@@ -79,7 +72,7 @@ const SignupLayout: React.FC = () => {
               className="focus:outline-none p-2 rounded-md text-lg text-black"
             />
             {errors.name && (
-              <span className="text-zinc-100 font-bold text-sm">
+              <span className="text-red-500 font-bold text-sm">
                 {errors.name.message}
               </span>
             )}
@@ -94,17 +87,17 @@ const SignupLayout: React.FC = () => {
               id="username"
               {...register("username")}
               onChange={async (e) => {
-                await checkUsername(e.target.value);
+                await usernameHandler(e.target.value);
               }}
               className="focus:outline-none p-2 rounded-md text-lg text-black"
             />
             {exists && (
-              <span className="text-zinc-100 font-bold">
+              <span className="text-red-500 font-bold">
                 This username is already taken
               </span>
             )}
             {errors.username && (
-              <span className="text-zinc-100 font-bold text-sm">
+              <span className="text-red-500 font-bold text-sm">
                 {errors.username.message}
               </span>
             )}
@@ -121,7 +114,7 @@ const SignupLayout: React.FC = () => {
               className="focus:outline-none p-2 rounded-md text-lg text-black"
             />
             {errors.email && (
-              <span className="text-zinc-100 font-bold text-sm">
+              <span className="text-red-500 font-bold text-sm">
                 {errors.email.message}
               </span>
             )}
@@ -132,30 +125,18 @@ const SignupLayout: React.FC = () => {
             </label>
             <div className="flex justify-between gap-1">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 id="password"
                 {...register("password")}
-                className="focus:outline-none p-2 rounded-md text-lg text-black"
+                className="focus:outline-none p-2 rounded-md text-lg text-black w-full"
               />
-              <button
-                className="focus:outline-none"
-                onClick={() => {
-                  const password = document.getElementById(
-                    "password"
-                  ) as HTMLInputElement;
-                  if (password.type === "password") {
-                    password.type = "text";
-                  } else {
-                    password.type = "password";
-                  }
-                }}
-              >
-                <img src={eyeIcon} alt="hidden" />
-              </button>
+              <div onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? (<GrFormView className="size-10" />) : (<GrFormViewHide className="size-10" />)}
+              </div>
             </div>
             {errors.password && (
-              <span className="text-zinc-100 font-bold text-sm">
+              <span className="text-red-500 font-bold text-sm">
                 {errors.password.message}
               </span>
             )}

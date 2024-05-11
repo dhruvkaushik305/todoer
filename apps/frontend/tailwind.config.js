@@ -15,6 +15,7 @@ export default {
         Lobster: ["Lobster", "sans-serif"],
         Sriracha: ["Sriracha", "cursive"],
         ArchivoBlack: ["Archivo Black", "sans-serif"],
+        Khand: ["Khand", "sans-serif"],
       },
     },
   },

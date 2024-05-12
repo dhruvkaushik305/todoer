@@ -4,7 +4,7 @@ import { TodoType } from "@repo/types/Todo";
 import { toast } from "sonner";
 import { createTodo } from "../../../actions/todoActions";
 import todoAtom from "../../../store/todo";
-const Input: React.FC = () => {
+const AddTodoComponent: React.FC = () => {
     const setTodos = useSetRecoilState(todoAtom);
     const task = useRef<HTMLInputElement>(null);
     const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,4 +54,4 @@ const Input: React.FC = () => {
         </form>
     </div>;
 }
-export default Input;
+export default AddTodoComponent;

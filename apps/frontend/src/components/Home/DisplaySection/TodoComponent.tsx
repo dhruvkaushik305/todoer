@@ -12,7 +12,7 @@ import { deleteTodo, editState, editTodo } from '../../../actions/todoActions';
 import todoAtom from '../../../store/todo';
 import { userData } from '../../../store/auth';
 import selectedUserAtom from '../../../store/user';
-const Todo: React.FC<{ todo: TodoType }> = (props) => {
+const TodoComponent: React.FC<{ todo: TodoType }> = (props) => {
     const user = useRecoilValue(userData);
     const selectedUser = useRecoilValue(selectedUserAtom);
     const activeUser = selectedUser?.id === user?.id;
@@ -113,4 +113,4 @@ const Todo: React.FC<{ todo: TodoType }> = (props) => {
 
 }
 
-export default Todo
+export default TodoComponent

@@ -19,7 +19,7 @@ function App() {
           <Route path="/" element={<LandingComponent />} />
           <Route path="/auth/signup" element={<SignupComponent />} />
           <Route path="/auth/login" element={<LoginComponent />} />
-          <Route path="/home" element={<HomeComponent />} />
+          <Route path="/home/*" element={<HomeComponent />} />
           <Route path="/testing" element={<TestingLayout />} />
         </Routes>
       </div>

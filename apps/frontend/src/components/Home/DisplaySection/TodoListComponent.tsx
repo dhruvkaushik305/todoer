@@ -1,18 +1,16 @@
 import React, { useRef } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import Todo from "./Todo";
+import { useRecoilState } from "recoil";
 import { DndContext, closestCorners } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { TodoType } from "@repo/types/Todo";
 import { editOrder } from "../../../actions/todoActions";
 import { toast } from "sonner";
 import todoAtom from "../../../store/todo";
-import selectedUserAtom from "../../../store/user";
 import useGetTodos from "../../../hooks/useGetTodos";
-const Display: React.FC = () => {
+import TodoComponent from "./TodoComponent";
+const TodoListComponent: React.FC = () => {
     useGetTodos();
     let timeout = useRef<NodeJS.Timeout>();
-    const selectedUser = useRecoilValue(selectedUserAtom);
     const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
     const dragHandler = (event: any) => {
         const { active, over } = event;
@@ -34,17 +32,15 @@ const Display: React.FC = () => {
             })
         }, 2000);
     }
-    //TODO: If no user is selected, show feed
-    if (!selectedUser) return null;
     return (
-        <div className="h-full p-5 flex flex-col gap-2">
+        <div className="p-5 flex flex-col gap-2 text-white">
             <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
                     {todos.length === 0 && <div className="text-center text-2xl">No tasks yet</div>}
-                    {todos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+                    {todos.map((todo) => <TodoComponent key={todo.id} todo={todo} />)}
                 </SortableContext>
             </DndContext>
         </div>
     );
 };
-export default Display;
+export default TodoListComponent;

@@ -1,5 +1,5 @@
 import express from "express";
-import apiV1 from "./routes/route";
+import apiV1 from "./routes/v1Router";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();

@@ -5,8 +5,8 @@ import {
   logout,
   signup,
   userIsLogged,
-} from "../controllers/auth";
-import authenticateUser from "../middlewares/auth";
+} from "../controllers/authController";
+import authenticateUser from "../middlewares/authMiddleware";
 const router = express.Router();
 router.post("/signup", signup);
 router.get("/checkUsername/:username", checkUsername);

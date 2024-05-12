@@ -1,8 +1,8 @@
 import express from "express";
-import authRouter from "./auth";
-import todoRouter from "./todo";
-import userRouter from "./user";
-import GlobalError from "../middlewares/globalError";
+import authRouter from "./authRoutes";
+import todoRouter from "./todoRoutes";
+import userRouter from "./userRoutes";
+import GlobalError from "../middlewares/globalErrorMiddleware";
 const router = express.Router();
 router.use("/auth", authRouter);
 router.use("/todo", todoRouter);

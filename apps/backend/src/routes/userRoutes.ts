@@ -1,6 +1,10 @@
 import express from "express";
-import { followUser, searchUsers, unfollowUser } from "../controllers/user";
-import authenticateUser from "../middlewares/auth";
+import {
+  followUser,
+  searchUsers,
+  unfollowUser,
+} from "../controllers/userController";
+import authenticateUser from "../middlewares/authMiddleware";
 const router = express.Router();
 router.use(authenticateUser);
 router.get("/search", searchUsers);

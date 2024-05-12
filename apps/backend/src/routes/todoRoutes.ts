@@ -6,8 +6,8 @@ import {
   updateOrder,
   updateStatus,
   updateTodo,
-} from "../controllers/todo";
-import authenticateUser from "../middlewares/auth";
+} from "../controllers/todoController";
+import authenticateUser from "../middlewares/authMiddleware";
 const router = express.Router();
 router.use(authenticateUser);
 router.post("/create", create);

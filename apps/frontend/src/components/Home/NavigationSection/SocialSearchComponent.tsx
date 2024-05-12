@@ -2,11 +2,11 @@ import React from "react";
 import { SearchUser } from "../../../actions/userActions";
 import { UserType } from "@repo/types/User";
 import { CiSearch } from "react-icons/ci";
-interface SearchBarProps {
+interface SocialSearchComponent {
     setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;
 }
 let timeout: NodeJS.Timeout | undefined;
-const SearchBar: React.FC<SearchBarProps> = (props) => {
+const SocialSearchComponent: React.FC<SocialSearchComponent> = (props) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const { setUsers } = props;
     const searchHandler = () => {
@@ -27,4 +27,4 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
         <input type="text" placeholder="Search by username" className="focus: outline-none w-full rounded-md p-2 bg-gray-700 text-zinc-200" ref={inputRef} onChange={searchHandler} />
     </div>
 }
-export default SearchBar
+export default SocialSearchComponent

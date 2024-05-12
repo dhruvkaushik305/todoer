@@ -97,7 +97,7 @@ const TodoComponent: React.FC<{ todo: TodoType }> = (props) => {
             deleteHandler();
         }
     }
-    return <div key={todo.id} className='flex items-center gap-3 bg-gray-800 rounded-lg p-2  border border-gray-800 hover:border-2 hover:border-gray-400 transition duration-75'  {...attributes} ref={setNodeRef} style={style}>
+    return <div key={todo.id} className='flex items-center gap-3 bg-gray-800 rounded-lg p-2  border border-gray-800 hover:border-2 hover:border-gray-400'  {...attributes} ref={setNodeRef} style={style}>
         {activeUser && <GoGrabber className='size-8 text-white rounded-md cursor-grab' {...listeners} />}
         <label className='flex items-center gap-3 grow'>
             <input type='checkbox' checked={todo.completed} className='size-5' onChange={markAsCompleted} disabled={!activeUser} />

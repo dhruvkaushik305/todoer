@@ -9,7 +9,7 @@ const MyTodosComponent: React.FC = () => {
     const currentUser = useRecoilValue(userData);
     const setSelectedUser = useSetRecoilState(selectedUserAtom);
     setSelectedUser(currentUser);
-    return <div className="h-full flex flex-col justify-between">
+    return <div className="h-full flex flex-col justify-between max-w-3/4">
         <TodoListComponent />
         <AddTodoComponent />
     </div>

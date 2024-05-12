@@ -1,4 +1,3 @@
-import { TodoType } from "@repo/types/Todo";
 import { UserType } from "@repo/types/User";
 
 export const isLoggedIn = async () => {

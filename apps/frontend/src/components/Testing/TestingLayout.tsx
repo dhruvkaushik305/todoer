@@ -1,7 +1,7 @@
 import React from 'react'
 import Calendar from '../Profile/Calendar'
 
-const TestingLayout = () => {
+const TestingLayout: React.FC = () => {
     return (
         <div>
             <Calendar />

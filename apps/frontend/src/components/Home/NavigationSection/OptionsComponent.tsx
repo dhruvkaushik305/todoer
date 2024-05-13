@@ -2,7 +2,7 @@ import React from 'react';
 import MyTodosOption from './MyTodosOption';
 import ExploreOption from './ExploreOption';
 const OptionsComponent: React.FC = () => {
-    return <div className='flex flex-col gap-3 p-1'>
+    return <div className='text-white flex lg:flex-col gap-3 p-1'>
         <ExploreOption />
         <MyTodosOption />
     </div>

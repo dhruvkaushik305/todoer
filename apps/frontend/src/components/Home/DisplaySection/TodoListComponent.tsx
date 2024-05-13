@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useRecoilState } from "recoil";
-import { DndContext, closestCorners } from "@dnd-kit/core";
+import { DndContext, closestCorners, useSensors, useSensor, PointerSensor, TouchSensor } from "@dnd-kit/core";
 import { SortableContext, arrayMove, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { TodoType } from "@repo/types/Todo";
 import { editOrder } from "../../../actions/todoActions";
@@ -32,9 +32,13 @@ const TodoListComponent: React.FC = () => {
             })
         }, 2000);
     }
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(TouchSensor),
+    )
     return (
         <div className="p-5 flex flex-col gap-2 text-white">
-            <DndContext collisionDetection={closestCorners} onDragEnd={dragHandler}>
+            <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={dragHandler}>
                 <SortableContext items={todos} strategy={verticalListSortingStrategy}>
                     {todos.length === 0 && <div className="text-center text-2xl">No tasks yet</div>}
                     {todos.map((todo) => <TodoComponent key={todo.id} todo={todo} />)}

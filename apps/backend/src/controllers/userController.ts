@@ -115,3 +115,19 @@ export const unfollowUser = async (
     next(err);
   }
 };
+export const getFollowing = async (
+  req: userRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const followingUsers = await db.user.findUnique({
+      where: { id: req.user?.id },
+      include: {
+        following: true,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};

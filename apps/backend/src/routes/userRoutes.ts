@@ -1,6 +1,7 @@
 import express from "express";
 import {
   followUser,
+  getFollowing,
   searchUsers,
   unfollowUser,
 } from "../controllers/userController";
@@ -10,4 +11,5 @@ router.use(authenticateUser);
 router.get("/search", searchUsers);
 router.get("/follow/:userId", followUser);
 router.get("/unfollow/:userId", unfollowUser);
+router.get("/following", getFollowing);
 export default router;

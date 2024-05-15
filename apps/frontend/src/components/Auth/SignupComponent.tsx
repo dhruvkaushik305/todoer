@@ -27,8 +27,9 @@ const SignupComponent: React.FC = () => {
       }
     }
     catch (err) {
-      console.log(err);
-      toast.error("Something went wrong");
+      toast.error("Server seems to be down", {
+        closeButton: true,
+      });
     }
   };
   const usernameHandler = async (username: string) => {

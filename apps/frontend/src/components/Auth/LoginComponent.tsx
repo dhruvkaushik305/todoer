@@ -27,8 +27,9 @@ const LoginComponent: React.FC = () => {
             }
         }
         catch (err) {
-            console.log(err);
-            toast.error("Something went wrong")
+            toast.error("Server seems to be down", {
+                closeButton: true,
+            });
         }
     }
     return <div className='p-3 md:p-5 rounded-lg text-zinc-200 border border-gray-900 w-10/12 min-h-5/6 max-h-full flex gap-2 items-center overflow-hidden'>

@@ -11,13 +11,19 @@ const useAuth = () => {
   const [user, setUser] = useRecoilState(userData);
   useEffect(() => {
     const getUser = async () => {
-      const response: { success: boolean; data?: UserType } =
+      const response: { success: boolean; data?: UserType; error?: string } =
         await isLoggedIn();
+      console.log(response);
       if (response.success) {
         setUser(response.data!);
-        toast.success(`Welcome back ${response.data!.name}`);
+        toast.success(`Welcome back ${response.data!.name.split(" ")[0]}`);
         navigate("/home");
       } else {
+        if (response.error === "Server down") {
+          toast.error("Sorry, our server seems down", {
+            closeButton: true,
+          });
+        }
         setUser(null);
       }
     };

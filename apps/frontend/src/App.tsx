@@ -12,7 +12,7 @@ function App() {
   useAuth();
   return (
     <div>
-      <Toaster />
+      <Toaster richColors />
       <NavbarLayout />
       <div className="pt-[4rem] h-screen w-screen bg-black flex justify-center items-center">
         <Routes>

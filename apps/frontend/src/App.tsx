@@ -14,7 +14,7 @@ function App() {
     <div>
       <Toaster richColors />
       <NavbarLayout />
-      <div className="pt-[4rem] h-screen w-screen bg-black flex justify-center items-center">
+      <div className="pt-[4rem] h-screen w-screen bg-black flex justify-center items-center overflow-ellipsis">
         <Routes>
           <Route path="/" element={<LandingComponent />} />
           <Route path="/auth/signup" element={<SignupComponent />} />

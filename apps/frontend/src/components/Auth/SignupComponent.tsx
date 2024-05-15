@@ -44,14 +44,14 @@ const SignupComponent: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="p-3 rounded-lg flex gap-5 text-zinc-100 border-2 border-gray-800 h-5/6 items-center lg:w-10/12 w-11/12">
-      <div className="font-Khand font-bold xl:text-9xl lg:text-7xl text-5xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[4rem] h-full hidden border-r border-gray-800">
+    <div className="p-5 rounded-lg flex gap-6 text-zinc-100 border border-gray-900 min-h-5/6 max-h-full items-center lg:w-10/12 w-11/12 overflow-hideen">
+      <div className="font-Khand font-bold xl:text-8xl lg:text-7xl text-6xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[5rem] leading-[4rem] h-full hidden text-wrap">
         <p>Today's <span className="text-blue underline">Tasks,</span></p>
         <p>Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>
       </div>
       <div className="p-1 rounded-md w-full">
-        <p className="text-4xl text-center mb-[2rem] font-sans">Join today</p>
+        <p className="text-4xl text-center mb-[2rem] font-sans lg:text-3xl">Join today</p>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col w-full">
             <label htmlFor="name" className="text-xl">
@@ -136,7 +136,7 @@ const SignupComponent: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="p-3 bg-blue text-white rounded-lg mt-5 text-xl"
+            className="p-3 bg-blue text-white rounded-lg mt-5 lg:text-xl text-lg"
           >
             Sign up
           </button>

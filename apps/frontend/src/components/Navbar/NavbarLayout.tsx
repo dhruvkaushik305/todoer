@@ -8,7 +8,7 @@ const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userData);
   return (
-    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center border-b-2 border-gray-700">
+    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center border-b-2 border-gray-700 max-h-[4rem]">
       <div className="md:text-4xl text-3xl text-white font-Pacifico cursor-pointer" onClick={() => navigate("/")}>
         Todoer
       </div>

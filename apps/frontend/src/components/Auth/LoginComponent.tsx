@@ -31,8 +31,8 @@ const LoginComponent: React.FC = () => {
             toast.error("Something went wrong")
         }
     }
-    return <div className='p-3 md:p-5 rounded-lg text-zinc-200 border border-gray-800 w-10/12 h-5/6 flex gap-2 items-center'>
-        <div className='font-Khand font-bold text-center xl:text-9xl hidden lg:text-8xl lg:flex lg:flex-col justify-center leading-[8rem] items-start w-1/2 p-3 border-r border-gray-800 h-full'>
+    return <div className='p-3 md:p-5 rounded-lg text-zinc-200 border border-gray-900 w-10/12 min-h-5/6 max-h-full flex gap-2 items-center overflow-hidden'>
+        <div className='font-Khand font-bold text-center xl:text-9xl hidden lg:text-8xl lg:flex lg:flex-col justify-center leading-[8rem] items-start w-1/2 p-3 h-full'>
             <p>Good</p>
             <p className='text-blue underline'>Things</p>
             <p>Are</p>

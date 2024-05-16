@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,8 +13,8 @@ model User {
   email     String   @unique
   password  String
   username  String   @unique
+  Post      Post?
   joinedAt  DateTime @default(now())
-  todos     Todo[]
   followers Follow[] @relation("followers") //People who follow this user
   following Follow[] @relation("following") //People who this user is following
 }
@@ -29,12 +23,28 @@ model Todo {
   id        String   @id @default(uuid())
   order     Int
   task      String
+  postId    String
   completed Boolean  @default(false)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  Post      Post     @relation(fields: [postId], references: [id])
   createdAt DateTime @default(now())
 }
 
+model Post {
+  id        String   @id @default(uuid())
+  todos     Todo[]
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // cheers    Cheer[]
+}
+
+// model Cheer {
+//   id        String   @id @default(uuid())
+//   count    Int
+//   postId String
+//   Post    Post    @relation(fields: [postId], references: [id])
+// }
 model Follow {
   id           String   @id @default(uuid())
   userId       String   @unique

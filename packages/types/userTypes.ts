@@ -5,3 +5,6 @@ export type UserType = {
   username: string;
   joinedAt: Date;
 };
+export interface UserRequest extends Request {
+  user?: UserType;
+}

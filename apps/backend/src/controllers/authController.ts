@@ -1,13 +1,14 @@
-import { SignupSchema } from "@repo/types/Signup";
+import { SignupSchema, LoginSchema } from "@repo/types/Auth";
 import { NextFunction, Request, Response } from "express";
-import { LoginSchema } from "@repo/types/Login";
+import { UserType } from "@repo/types/User";
 import db from "@repo/db/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserType } from "@repo/types/User";
-interface userRequest extends Request {
+
+interface UserRequest extends Request {
   user?: UserType;
 }
+
 export async function checkUsername(
   req: Request,
   res: Response,
@@ -28,6 +29,7 @@ export async function checkUsername(
     next(err);
   }
 }
+
 export async function signup(req: Request, res: Response, next: NextFunction) {
   const verify = SignupSchema.safeParse(req.body);
   if (!verify.success) {
@@ -44,11 +46,12 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
         username,
       },
     });
-    return res.status(201).json({ success: true, data: user });
+    return res.status(201).json({ success: true, message: "User created" });
   } catch (err) {
     next(err);
   }
 }
+
 export async function login(req: Request, res: Response, next: NextFunction) {
   const verify = LoginSchema.safeParse(req.body);
   if (!verify.success) {
@@ -82,9 +85,11 @@ export async function login(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
-export const userIsLogged = (req: userRequest, res: Response) => {
+
+export const userIsLogged = (req: UserRequest, res: Response) => {
   return res.status(200).json({ success: true, data: req.user });
 };
+
 export const logout = (req: Request, res: Response) => {
   if (req.cookies.authorization) {
     res.clearCookie("authorization");

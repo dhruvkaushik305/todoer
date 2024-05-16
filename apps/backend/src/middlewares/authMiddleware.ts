@@ -2,14 +2,16 @@ import { Request, Response, NextFunction } from "express";
 import { UserType } from "@repo/types/User";
 import db from "@repo/db/prisma";
 import jwt from "jsonwebtoken";
-interface userRequest extends Request {
+interface UserRequest extends Request {
   user?: UserType;
 }
+
 interface decodedToken extends jwt.JwtPayload {
   id: string;
 }
+
 const authenticateUser = async (
-  req: userRequest,
+  req: UserRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -21,12 +23,10 @@ const authenticateUser = async (
     }
     const token = req.cookies.authorization.split(" ")[1];
     if (!token) {
-      return res
-        .status(401)
-        .json({
-          success: false,
-          error: "Unauthorized, Invalid format of access token",
-        });
+      return res.status(401).json({
+        success: false,
+        error: "Unauthorized, Invalid access token",
+      });
     }
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET not found. Did you set up the ENV?");

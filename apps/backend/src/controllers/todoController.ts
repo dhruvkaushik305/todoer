@@ -1,33 +1,44 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../packages/types/userTypes";
 import { Request, Response, NextFunction } from "express";
 import db from "@repo/db/prisma";
+
 interface userRequest extends Request {
   user?: UserType;
 }
+
 export const create = async (
   req: userRequest,
   res: Response,
   next: NextFunction
 ) => {
   const { task, order }: { task: string; order: number } = req.body;
-  if (!task) {
+  if (!task || !order) {
     return res
       .status(400)
       .json({ success: false, message: "Incomplete request" });
   }
   try {
-    const response = await db.todo.create({
+    const response = await db.post.create({
       data: {
-        task,
         userId: req.user!.id,
-        order,
+        todos: {
+          create: {
+            task,
+            order,
+          },
+        },
+      },
+      select: {
+        todos: true,
       },
     });
-    return res.status(201).json({ success: true, data: response });
+
+    return res.status(201).json({ success: true, data: response.todos });
   } catch (err) {
     next(err);
   }
 };
+
 export const read = async (
   req: userRequest,
   res: Response,
@@ -35,25 +46,24 @@ export const read = async (
 ) => {
   const { id } = req.params;
   try {
-    const todos = await db.todo.findMany({
+    const post = await db.post.findMany({
       where: {
         userId: id,
       },
-      select: {
-        id: true,
-        order: true,
-        task: true,
-        completed: true,
-      },
-      orderBy: {
-        order: "asc",
+      include: {
+        todos: {
+          orderBy: {
+            order: "asc",
+          },
+        },
       },
     });
-    return res.status(200).json({ success: true, data: todos });
+    return res.status(200).json({ success: true, data: post });
   } catch (err) {
     next(err);
   }
 };
+
 export const updateOrder = async (
   req: userRequest,
   res: Response,
@@ -80,6 +90,7 @@ export const updateOrder = async (
     next(err);
   }
 };
+
 export const updateStatus = async (
   req: userRequest,
   res: Response,
@@ -104,6 +115,7 @@ export const updateStatus = async (
     next(err);
   }
 };
+
 export const updateTodo = async (
   req: userRequest,
   res: Response,
@@ -128,6 +140,7 @@ export const updateTodo = async (
     next(err);
   }
 };
+
 export const remove = async (
   req: userRequest,
   res: Response,
@@ -140,7 +153,7 @@ export const remove = async (
         id: id,
       },
     });
-    return res.status(200).json({ success: true, data: response });
+    return res.status(200).json({ success: true, message: "Todo deleted" });
   } catch (err) {
     next(err);
   }

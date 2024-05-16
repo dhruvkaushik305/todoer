@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./Signup": "./auth.ts",
-    "./Login": "./auth.ts",
-    "./User": "./user.ts",
-    "./Todo": "./todo.ts"
+    "./Auth": "./authTypes.ts",
+    "./User": "./userTypes.ts",
+    "./Todo": "./todoTypes.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

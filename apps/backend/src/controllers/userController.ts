@@ -1,9 +1,11 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../packages/types/userTypes";
 import { NextFunction, Request, Response } from "express";
 import db from "@repo/db/prisma";
+
 interface userRequest extends Request {
   user?: UserType;
 }
+
 export const searchUsers = async (
   req: userRequest,
   res: Response,
@@ -32,6 +34,7 @@ export const searchUsers = async (
     next(err);
   }
 };
+
 export const followUser = async (
   req: userRequest,
   res: Response,
@@ -50,12 +53,12 @@ export const followUser = async (
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "Requested User not found" });
     }
     const isFollowing = await db.follow.findFirst({
       where: {
-        followerId: userId,
-        followingId: req.user?.id,
+        userId: userId,
+        followedById: req.user?.id,
       },
     });
     if (isFollowing) {
@@ -65,8 +68,8 @@ export const followUser = async (
     }
     await db.follow.create({
       data: {
-        followerId: userId,
-        followingId: req.user!.id,
+        userId: userId,
+        followedById: req.user!.id,
       },
     });
     return res.status(200).json({ success: true, message: "Followed user" });
@@ -74,6 +77,7 @@ export const followUser = async (
     next(err);
   }
 };
+
 export const unfollowUser = async (
   req: userRequest,
   res: Response,
@@ -92,12 +96,12 @@ export const unfollowUser = async (
     if (!user) {
       return res
         .status(404)
-        .json({ success: false, message: "User not found" });
+        .json({ success: false, message: "Requested User not found" });
     }
     const isFollowing = await db.follow.findFirst({
       where: {
-        followerId: userId,
-        followingId: req.user?.id,
+        userId: userId,
+        followedById: req.user?.id,
       },
     });
     if (!isFollowing) {
@@ -115,6 +119,7 @@ export const unfollowUser = async (
     next(err);
   }
 };
+
 export const getFollowing = async (
   req: userRequest,
   res: Response,
@@ -123,10 +128,17 @@ export const getFollowing = async (
   try {
     const followingUsers = await db.user.findUnique({
       where: { id: req.user?.id },
-      include: {
-        following: true,
+      select: {
+        following: {
+          select: {
+            following: true,
+          },
+        },
       },
     });
+    return res
+      .status(200)
+      .json({ success: true, data: followingUsers?.following });
   } catch (err) {
     next(err);
   }

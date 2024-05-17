@@ -2,22 +2,16 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import todoAtom from "../store/todo";
 import selectedUserAtom from "../store/user";
+import { readTodos } from "../actions/todoActions";
 
 const useGetTodos = () => {
   const selectedUser = useRecoilValue(selectedUserAtom);
   const setTodos = useSetRecoilState(todoAtom);
   useEffect(() => {
     const fetchTodos = async () => {
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND}/todo/read/${selectedUser?.id}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      const response = await res.json();
+      const response = await readTodos(selectedUser!.id);
       if (response.success) {
-        setTodos(response.data);
+        setTodos(response.data!);
       }
     };
     if (selectedUser) {

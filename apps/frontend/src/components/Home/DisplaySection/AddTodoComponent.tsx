@@ -13,27 +13,28 @@ const AddTodoComponent: React.FC = () => {
         if (task.current && task.current.value.trim() !== "") {
             //Updating the local state first
             setTodos((oldTodos) => {
+                order = oldTodos.length
+                return [...oldTodos, {
+                    id: Math.random().toString(36).substring(2, 9),
+                    order,
+                    task: task.current!.value,
+                    completed: false,
+                    postId: "1"
+                } as TodoType
+                ]
                 if (oldTodos) {
-                    order = oldTodos.length
-                    return [...oldTodos, {
-                        id: Math.random().toString(36).substring(2, 9),
-                        order,
-                        task: task.current!.value,
-                        completed: false,
-                        userId: "1"
-                    } as TodoType
-                    ]
+
                 } else return [];
             })
             //Updating the server
-            const response: { success: boolean, data?: TodoType } = await createTodo(task.current.value, order);
+            const response: { success: boolean, data?: TodoType[], error?: string } = await createTodo(task.current.value, order);
             if (response.success) {
                 //Updating the local state with the correct values
-                const newTodo: TodoType = response.data!;
+                const newTodo: TodoType = response.data![order];
                 setTodos((oldTodos) => {
                     if (oldTodos) {
                         return oldTodos.map((todo) => {
-                            if (todo.userId === "1") {
+                            if (todo.postId === "1") {
                                 return newTodo;
                             } else return todo;
                         })

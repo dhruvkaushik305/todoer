@@ -3,13 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import MyTodosComponent from "./MyTodosComponent";
 import ExploreComponent from "./ExploreComponent";
 import UserTodosComponent from "./UserTodosComponent";
+import FollowingSection from "../FollowingSection/FollowingSection";
 const DisplaySection: React.FC = () => {
-    //TODO: The user searched should be set as the selected user
-    return <div className="w-full flex justify-center">
+    return <div className="w-full h-full flex justify-center">
         <Routes>
-            <Route path="/mytodos" element={<MyTodosComponent />} />
+            <Route path="/" element={<MyTodosComponent />} />
             <Route path="/explore" element={<ExploreComponent />} />
             <Route path="/user/:id" element={<UserTodosComponent />} />
+            <Route path="/following/*" element={<FollowingSection />} />
         </Routes>
     </div>;
 }

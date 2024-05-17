@@ -36,6 +36,7 @@ const TodoListComponent: React.FC = () => {
         useSensor(PointerSensor),
         useSensor(TouchSensor),
     )
+    if (!todos) return <div className="text-red-500 text-xl">[Critical]Todos is undefined.</div>
     return (
         <div className="p-5 flex flex-col gap-2 text-white">
             <DndContext sensors={sensors} collisionDetection={closestCorners} onDragEnd={dragHandler}>

@@ -1,4 +1,4 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../packages/types/userTypes.js";
 
 export const isLoggedIn = async () => {
   try {
@@ -13,7 +13,7 @@ export const isLoggedIn = async () => {
   }
   return {
     success: false,
-    error: "Something went wrong while making the request",
+    error: "Server down",
   };
 };
 
@@ -64,6 +64,25 @@ export const UnfollowUser = async (userId: string) => {
     return response;
   } catch (err) {
     console.error("Error while unfollowing the user", err);
+    return {
+      success: false,
+      error: "Something went wrong while making the request",
+    };
+  }
+};
+interface GetFollowingResponse {
+  success: boolean;
+  data?: { followers: UserType }[];
+  error?: string;
+}
+export const getFollowingAction = async () => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/user/following`, {
+      credentials: "include",
+    });
+    const response: GetFollowingResponse = await res.json();
+    return response;
+  } catch (err) {
     return {
       success: false,
       error: "Something went wrong while making the request",

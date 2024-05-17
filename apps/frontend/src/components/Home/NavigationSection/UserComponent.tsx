@@ -1,4 +1,4 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../../../packages/types/userTypes.js";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import selectedUserAtom from "../../../store/user";

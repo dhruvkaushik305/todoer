@@ -1,5 +1,5 @@
 import React from "react";
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../../../packages/types/userTypes.js";
 import UserComponent from "./UserComponent";
 interface SearchedUsersComponentProps {
     users: UserType[];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LoginInput, LoginSchema } from '@repo/types/Login';
+import { LoginInput, LoginSchema } from '@repo/types/Auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useSetRecoilState } from 'recoil';

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SocialSearchComponent from "../NavigationSection/SocialSearchComponent";
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../../../packages/types/userTypes.js";
 import SearchedUsersComponent from "../NavigationSection/SearchedUsersComponent";
 const ExploreComponent: React.FC = () => {
     const [users, setUsers] = useState<UserType[]>([]);

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { GrFormViewHide } from "react-icons/gr";
 import { GrFormView } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
-import { SignupInput, SignupSchema } from "@repo/types/Signup"
+import { SignupInput, SignupSchema } from "@repo/types/Auth"
 import { toast } from "sonner";
 import { signupAction, checkUsernameAction } from "../../actions/authAction";
 let timeout: NodeJS.Timeout | undefined = undefined;
@@ -18,6 +18,7 @@ const SignupComponent: React.FC = () => {
     formState: { errors },
   } = useForm<SignupInput>({ resolver: zodResolver(SignupSchema) });
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
+    //Don't allow to signup if the username is already taken
     if (exists) return;
     try {
       const response = await signupAction(data);

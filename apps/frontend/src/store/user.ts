@@ -1,4 +1,4 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../packages/types/userTypes.js";
 import { atom } from "recoil";
 
 const selectedUserAtom = atom({

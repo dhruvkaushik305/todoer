@@ -126,19 +126,15 @@ export const getFollowing = async (
   next: NextFunction
 ) => {
   try {
-    const followingUsers = await db.user.findUnique({
-      where: { id: req.user?.id },
+    const followingUsers = await db.follow.findMany({
+      where: {
+        followedById: req.user?.id,
+      },
       select: {
-        following: {
-          select: {
-            following: true,
-          },
-        },
+        followers: true,
       },
     });
-    return res
-      .status(200)
-      .json({ success: true, data: followingUsers?.following });
+    return res.status(200).json({ success: true, data: followingUsers });
   } catch (err) {
     next(err);
   }

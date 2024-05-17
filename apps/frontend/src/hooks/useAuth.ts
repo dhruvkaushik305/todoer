@@ -1,4 +1,4 @@
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../packages/types/userTypes.js";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { userData } from "../store/auth";
@@ -13,7 +13,6 @@ const useAuth = () => {
     const getUser = async () => {
       const response: { success: boolean; data?: UserType; error?: string } =
         await isLoggedIn();
-      console.log(response);
       if (response.success) {
         setUser(response.data!);
         toast.success(`Welcome back ${response.data!.name.split(" ")[0]}`);

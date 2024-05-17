@@ -12,12 +12,40 @@ export const create = async (
   next: NextFunction
 ) => {
   const { task, order }: { task: string; order: number } = req.body;
-  if (!task || !order) {
+  if (!task || order === undefined) {
     return res
       .status(400)
       .json({ success: false, message: "Incomplete request" });
   }
   try {
+    //find if the user already has a post
+    const post = await db.post.findUnique({
+      where: {
+        userId: req.user!.id,
+      },
+    });
+    if (post) {
+      //update the post and return the updated post
+      const response = await db.post.update({
+        where: {
+          id: post.id,
+        },
+        data: {
+          todos: {
+            create: {
+              task,
+              order,
+            },
+          },
+        },
+        select: {
+          todos: true,
+        },
+      });
+
+      return res.status(201).json({ success: true, data: response.todos });
+    }
+    //create a new post
     const response = await db.post.create({
       data: {
         userId: req.user!.id,
@@ -46,11 +74,11 @@ export const read = async (
 ) => {
   const { id } = req.params;
   try {
-    const post = await db.post.findMany({
+    const post = await db.post.findUnique({
       where: {
         userId: id,
       },
-      include: {
+      select: {
         todos: {
           orderBy: {
             order: "asc",
@@ -58,7 +86,7 @@ export const read = async (
         },
       },
     });
-    return res.status(200).json({ success: true, data: post });
+    return res.status(200).json({ success: true, data: post?.todos || [] });
   } catch (err) {
     next(err);
   }

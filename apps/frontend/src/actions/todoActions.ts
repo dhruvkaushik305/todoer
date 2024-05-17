@@ -1,3 +1,18 @@
+import { TodoType } from "@repo/types/Todo";
+
+export const readTodos = async (id: string) => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/todo/read/${id}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const response: { success: boolean; data?: TodoType[]; error?: string } =
+      await res.json();
+    return response;
+  } catch (err) {
+    return { success: false, error: "There was an error while reading todos" };
+  }
+};
 export const createTodo = async (task: string, order: number) => {
   try {
     const res = await fetch(`${import.meta.env.VITE_BACKEND}/todo/create`, {
@@ -11,7 +26,8 @@ export const createTodo = async (task: string, order: number) => {
       }),
       credentials: "include",
     });
-    const response = await res.json();
+    const response: { success: boolean; data?: TodoType[]; error?: string } =
+      await res.json();
     return response;
   } catch (err) {
     console.error("Error while creating todo", err);

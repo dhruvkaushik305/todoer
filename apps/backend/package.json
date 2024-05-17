@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "public/index.js",
     "build": "tsc -b",
     "dev": "dotenv -- nodemon src/index.ts"
   },

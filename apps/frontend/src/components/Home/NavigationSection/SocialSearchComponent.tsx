@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchUser } from "../../../actions/userActions";
-import { UserType } from "@repo/types/User";
+import { UserType } from "../../../../../../packages/types/userTypes.js";
 import { CiSearch } from "react-icons/ci";
 interface SocialSearchComponent {
     setUsers: React.Dispatch<React.SetStateAction<UserType[]>>;

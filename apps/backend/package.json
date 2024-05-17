@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "public/index.js",
+    "start": "node public/index.js",
     "build": "tsc -b",
-    "dev": "dotenv -- nodemon src/index.ts"
+    "dev": "dotenv -- nodemon src/index.ts",
+    "prisma:generate": "cd ../../packages/db && npx prisma generate",
+    "prestart": "npm run build && npm run prisma:generate"
   },
   "keywords": [],
   "author": "",

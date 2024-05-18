@@ -80,6 +80,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
       httpOnly: true,
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
       sameSite: "none",
+      secure: true,
     });
     return res.status(200).json({ success: true, data: user });
   } catch (err) {

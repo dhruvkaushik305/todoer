@@ -3,41 +3,51 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userData } from "../../store/auth";
 import { toast } from "sonner";
+import { logoutAction } from "../../actions/authAction";
 
 const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userData);
   return (
-    <div className="fixed w-full flex bg-black justify-between md:justify-around p-3 items-center border-b-2 border-gray-700 max-h-[4rem]">
-      <div className="md:text-4xl text-3xl text-white font-Pacifico cursor-pointer" onClick={() => navigate("/")}>
+    <div className="sticky flex h-[4rem] w-full items-center justify-between border-b border-gray-800 bg-black p-3 md:justify-around">
+      <div
+        className="cursor-pointer font-Pacifico text-3xl text-white md:text-4xl"
+        onClick={() => navigate("/")}
+      >
         Todoer
       </div>
-      {user === null ? (<div className="flex justify-between gap-3">
-        <button
-          className="md:text-lg text-md bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg"
-          onClick={() => navigate("/auth/signup")}
-        >
-          Signup
-        </button>
-        <button className="md:text-lg text-md bg-blue text-white md:py-2 md:px-3 py-1 px-2 rounded-lg" onClick={() => navigate("/auth/login")}>
-          Login
-        </button>
-      </div>) : (<div>
-        <button className="bg-blue rounded-md text-white px-3 py-2" onClick={async () => {
-          // TODO: Move this to actions
-          const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/logout`, {
-            method: "DELETE",
-            credentials: "include"
-          });
-          const response: { success: boolean, message: string } = await res.json();
-          if (response.success) {
-            toast.success("Logged out successfully");
-            setUser(null);
-            navigate("/");
-          }
-        }}>Logout</button>
-      </div>)}
-
+      {user === null ? (
+        <nav className="flex justify-between gap-3">
+          <button
+            className="text-md rounded-lg bg-blue px-2 py-1 text-white md:px-3 md:py-2 md:text-lg"
+            onClick={() => navigate("/auth/signup")}
+          >
+            Signup
+          </button>
+          <button
+            className="text-md rounded-lg bg-blue px-2 py-1 text-white md:px-3 md:py-2 md:text-lg"
+            onClick={() => navigate("/auth/login")}
+          >
+            Login
+          </button>
+        </nav>
+      ) : (
+        <nav>
+          <button
+            className="rounded-md bg-blue px-3 py-2 text-white"
+            onClick={async () => {
+              const response = await logoutAction();
+              if (response.success) {
+                toast.success("Logged out successfully");
+                setUser(null);
+                navigate("/");
+              }
+            }}
+          >
+            Logout
+          </button>
+        </nav>
+      )}
     </div>
   );
 };

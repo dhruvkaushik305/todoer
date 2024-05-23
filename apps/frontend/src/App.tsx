@@ -8,13 +8,14 @@ import SignupComponent from "./components/Auth/SignupComponent";
 import LoginComponent from "./components/Auth/LoginComponent";
 import HomeComponent from "./components/Home/HomeComponent";
 import LandingComponent from "./components/Landing/LandingComponent";
+import FooterLayout from "./Layouts/FooterLayout";
 function App() {
   useAuth();
   return (
-    <div>
+    <div className="flex h-screen w-screen flex-col">
       <Toaster richColors />
       <NavbarLayout />
-      <div className="pt-[4rem] h-screen w-screen bg-black flex justify-center items-center overflow-ellipsis">
+      <div className="flex grow items-center justify-center">
         <Routes>
           <Route path="/" element={<LandingComponent />} />
           <Route path="/auth/signup" element={<SignupComponent />} />
@@ -23,6 +24,7 @@ function App() {
           <Route path="/testing" element={<TestingLayout />} />
         </Routes>
       </div>
+      <FooterLayout />
     </div>
   );
 }

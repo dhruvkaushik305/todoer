@@ -11,7 +11,7 @@ export const checkUsernameAction = async (username: string) => {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     const data: { success: boolean; exists: boolean } = await res.json();
     return data;
@@ -51,5 +51,18 @@ export const loginAction = async (input: {
     return data;
   } catch (err) {
     return { success: false, error: "Something went wrong while logging in" };
+  }
+};
+export const logoutAction = async () => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/logout`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const data: { success: boolean; message?: string; error?: string } =
+      await res.json();
+    return data;
+  } catch (err) {
+    return { success: false, error: "Something went wrong while logging out" };
   }
 };

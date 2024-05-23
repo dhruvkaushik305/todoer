@@ -97,8 +97,6 @@ export const logout = (req: Request, res: Response) => {
     res.clearCookie("authorization");
     res.status(200).json({ success: true, message: "Cookie removed" });
   } else {
-    return res
-      .status(401)
-      .json({ success: false, message: "No cookie present" });
+    return res.status(401).json({ success: false, error: "No cookie present" });
   }
 };

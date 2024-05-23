@@ -1,17 +1,18 @@
 {
+  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "moduleResolution": "Bundler",
-    "module": "ES2022",
-    "incremental": true,
-    "strict": true,
+    "lib": ["ES2015"],
     "rootDir": "../../",
-    "outDir": "public",
-    "baseUrl": "../../",
+    "outDir": "./dist",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
     "paths": {
-      "@repo/types/*": ["packages/types/*"],
-      "@repo/db/*": ["packages/db/*"]
+      "@repo/types/*": ["./packages/types/*"],
+      "@repo/db/*": ["./packages/db/*"]
     }
   },
+  "exclude": ["node_modules"],
   "include": [
     "../../packages/types/**/*.ts",
     "../../packages/db/**/*.ts",

@@ -7,8 +7,8 @@ import TestingLayout from "./components/Testing/TestingLayout";
 import SignupComponent from "./components/Auth/SignupComponent";
 import LoginComponent from "./components/Auth/LoginComponent";
 import HomeComponent from "./components/Home/HomeComponent";
-import LandingComponent from "./components/Landing/LandingComponent";
 import FooterLayout from "./Layouts/FooterLayout";
+import LandingLayout from "./Layouts/LandingLayout";
 function App() {
   useAuth();
   return (
@@ -17,7 +17,7 @@ function App() {
       <NavbarLayout />
       <div className="flex grow items-center justify-center">
         <Routes>
-          <Route path="/" element={<LandingComponent />} />
+          <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupComponent />} />
           <Route path="/auth/login" element={<LoginComponent />} />
           <Route path="/home/*" element={<HomeComponent />} />

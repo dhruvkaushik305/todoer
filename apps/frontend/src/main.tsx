@@ -4,13 +4,15 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-
+import LoadingLayout from "./Layouts/LoadingLayout.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+      <RecoilRoot>
+        <React.Suspense fallback={<LoadingLayout />}>
+          <App />
+        </React.Suspense>
+      </RecoilRoot>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -2,8 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Toaster } from "sonner";
 import useAuth from "./hooks/useAuth";
-import TestingLayout from "./components/Testing/TestingLayout";
-import HomeComponent from "./components/Home/HomeComponent";
 import FooterLayout from "./Layouts/FooterLayout";
 import LandingLayout from "./Layouts/LandingLayout";
 import SignupLayout from "./Layouts/SignupLayout";
@@ -20,8 +18,7 @@ function App() {
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />
           <Route path="/auth/login" element={<LoginLayout />} />
-          <Route path="/home/*" element={<HomeComponent />} />
-          <Route path="/testing" element={<TestingLayout />} />
+          <Route path="/home/*" element={<div>Bana le</div>} />
         </Routes>
       </div>
       <FooterLayout />

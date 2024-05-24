@@ -85,7 +85,7 @@ const LoginLayout: React.FC = () => {
             </div>
           </div>
           <button
-            className="mt-5 rounded-md bg-blue px-3 py-2 text-lg text-white"
+            className="bg-blue mt-5 rounded-md px-3 py-2 text-lg text-white"
             type="submit"
           >
             Login

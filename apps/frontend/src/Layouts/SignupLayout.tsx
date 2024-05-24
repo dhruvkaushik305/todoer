@@ -7,10 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { SignupInput, SignupSchema } from "@repo/types/Auth";
 import { toast } from "sonner";
 import { checkUsernameAction, signupAction } from "../actions/authAction";
+import { PuffLoader, SyncLoader } from "react-spinners";
 let timeout: NodeJS.Timeout | undefined = undefined;
 const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [usernameLoading, setUsernameLoading] = React.useState(false);
+  const [signupLoading, setSignupLoading] = React.useState(false);
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -19,10 +22,11 @@ const SignupLayout: React.FC = () => {
   } = useForm<SignupInput>({ resolver: zodResolver(SignupSchema) });
   const onSubmit: SubmitHandler<SignupInput> = async (data) => {
     //Don't allow to signup if the username is already taken
+    setSignupLoading(true);
     if (exists) return;
     try {
       const response = await signupAction(data);
-      //TODO: Add Loading spinners for the UI
+      setSignupLoading(false);
       if (response.success) {
         toast.success("Account created, let's login");
         navigate("/auth/login");
@@ -34,10 +38,12 @@ const SignupLayout: React.FC = () => {
     }
   };
   const usernameHandler = async (username: string) => {
+    setUsernameLoading(true);
     clearTimeout(timeout);
     if (username === "" || username === undefined) setExists(false);
     timeout = setTimeout(async () => {
       const data = await checkUsernameAction(username);
+      setUsernameLoading(false);
       if (data.exists) {
         setExists(true);
       } else {
@@ -49,7 +55,7 @@ const SignupLayout: React.FC = () => {
     <div className="flex w-9/12 items-stretch justify-center gap-5 p-4 text-zinc-100 md:justify-between">
       <div className="hidden min-h-full w-1/2 flex-col items-start justify-center text-wrap p-1 text-left font-sans text-6xl leading-[4rem] lg:flex lg:text-6xl lg:leading-[5rem] xl:text-7xl xl:leading-[7rem]">
         <p>
-          Today's <span className="text-blue underline">Tasks,</span>
+          Today's <span className="text-blue-500 underline">Tasks,</span>
         </p>
         <p>Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>
@@ -83,16 +89,19 @@ const SignupLayout: React.FC = () => {
             <label htmlFor="username" className="text-xl">
               Username
             </label>
-            <input
-              type="text"
-              placeholder="Username"
-              id="username"
-              {...register("username")}
-              onChange={async (e) => {
-                await usernameHandler(e.target.value);
-              }}
-              className="rounded-md p-2 text-lg text-black focus:outline-none"
-            />
+            <div className="flex items-center gap-2 rounded-md bg-white">
+              <input
+                type="text"
+                placeholder="Username"
+                id="username"
+                {...register("username")}
+                onChange={async (e) => {
+                  await usernameHandler(e.target.value);
+                }}
+                className="grow rounded-md p-2 text-lg text-black focus:outline-none"
+              />
+              <PuffLoader color="#60a5fa" size={44} loading={usernameLoading} />
+            </div>
             {exists && (
               <span className="font-bold text-red-500">
                 This username is already taken
@@ -150,12 +159,18 @@ const SignupLayout: React.FC = () => {
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            className="mt-5 rounded-lg bg-blue p-3 text-lg text-white lg:text-xl"
-          >
-            Sign up
-          </button>
+          {signupLoading ? (
+            <div className="flex h-[3rem] w-full items-center justify-center">
+              <SyncLoader color="#0284c7" />
+            </div>
+          ) : (
+            <button
+              type="submit"
+              className="mt-5 h-[3rem] rounded-lg bg-blue-600 p-3 text-lg text-white lg:text-xl"
+            >
+              Sign up
+            </button>
+          )}
         </form>
         <div className="text-lg">
           Already joined? &nbsp;

@@ -9,16 +9,20 @@ import { GrFormViewHide } from "react-icons/gr";
 import { GrFormView } from "react-icons/gr";
 import { userData } from "../store/auth";
 import { loginAction } from "../actions/authAction";
+import { SyncLoader } from "react-spinners";
 const LoginLayout: React.FC = () => {
   const setUser = useSetRecoilState(userData);
   const [showPassword, setShowPassword] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   const { handleSubmit, register } = useForm<LoginInput>({
     resolver: zodResolver(LoginSchema),
   });
   const onSubmit: SubmitHandler<LoginInput> = async (data) => {
+    setLoading(true);
     try {
       const result = await loginAction(data);
+      setLoading(false);
       if (result.success) {
         setUser(result.data!);
         toast.success(`Welcome back ${result.data!.name.split(" ")[0]}`);
@@ -32,17 +36,15 @@ const LoginLayout: React.FC = () => {
       });
     }
   };
-  //TODO: Add loading spinners
-  //TODO: The login box is not taking the full height
   return (
-    <div className="min-h-5/6 flex max-h-full w-10/12 items-center gap-2 rounded-lg p-3 text-zinc-200 md:p-5">
+    <div className="min-h-5/6 flex max-h-full w-10/12 items-stretch gap-2 rounded-lg p-3 text-zinc-200 md:p-5">
       <div className="justify-centertext-center hidden h-full w-1/2 items-start font-sans leading-[8rem] lg:flex lg:flex-col lg:text-8xl xl:text-9xl">
         <p>Good</p>
-        <p className="text-blue underline">Things</p>
+        <p className="text-blue-500 underline">Things</p>
         <p>Are</p>
         <p className="text-fuchsia-400 underline">Coming</p>
       </div>
-      <div className="flex h-full w-full grow flex-col items-center justify-center gap-3 border border-gray-800 p-3">
+      <div className="flex w-full grow flex-col items-center justify-center gap-3 border border-gray-800 p-3">
         <header className="text-center font-sans text-2xl md:text-4xl">
           Welcome back
         </header>
@@ -77,19 +79,25 @@ const LoginLayout: React.FC = () => {
                 className="cursor-pointer"
               >
                 {showPassword ? (
-                  <GrFormView className="size-10 text-black" />
+                  <GrFormView className="size-8 text-black" />
                 ) : (
-                  <GrFormViewHide className="size-10 text-black" />
+                  <GrFormViewHide className="size-8 text-black" />
                 )}
               </div>
             </div>
           </div>
-          <button
-            className="bg-blue mt-5 rounded-md px-3 py-2 text-lg text-white"
-            type="submit"
-          >
-            Login
-          </button>
+          {loading ? (
+            <div className="flex h-[3rem] w-full items-center justify-center">
+              <SyncLoader color="#0284c7" />
+            </div>
+          ) : (
+            <button
+              className="mt-5 h-[3rem] rounded-md bg-blue-600 px-3 py-2 text-lg text-white"
+              type="submit"
+            >
+              Login
+            </button>
+          )}
         </form>
         <div className="text-lg">
           Don't have an account?{" "}

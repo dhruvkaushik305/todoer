@@ -7,7 +7,7 @@ export default {
         midnightBlue: "#003D7A",
         darkBlue: "#051537",
         navyBlue: "#04247C",
-        blue: "#0458AB",
+        customBlue: "#0458AB",
         offWhite: "#F7F7F7",
       },
       fontFamily: {

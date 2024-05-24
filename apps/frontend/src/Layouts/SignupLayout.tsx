@@ -1,14 +1,14 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import { GrFormViewHide } from "react-icons/gr";
 import { GrFormView } from "react-icons/gr";
-import { useNavigate } from "react-router-dom";
-import { SignupInput, SignupSchema } from "@repo/types/Auth"
+import { Link, useNavigate } from "react-router-dom";
+import { SignupInput, SignupSchema } from "@repo/types/Auth";
 import { toast } from "sonner";
-import { signupAction, checkUsernameAction } from "../../actions/authAction";
+import { checkUsernameAction, signupAction } from "../actions/authAction";
 let timeout: NodeJS.Timeout | undefined = undefined;
-const SignupComponent: React.FC = () => {
+const SignupLayout: React.FC = () => {
   const [exists, setExists] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
@@ -22,12 +22,12 @@ const SignupComponent: React.FC = () => {
     if (exists) return;
     try {
       const response = await signupAction(data);
+      //TODO: Add Loading spinners for the UI
       if (response.success) {
         toast.success("Account created, let's login");
         navigate("/auth/login");
       }
-    }
-    catch (err) {
+    } catch (err) {
       toast.error("Server seems to be down", {
         closeButton: true,
       });
@@ -46,16 +46,23 @@ const SignupComponent: React.FC = () => {
     }, 1000);
   };
   return (
-    <div className="p-5 rounded-lg flex gap-6 text-zinc-100 border border-gray-900 min-h-5/6 max-h-full items-center lg:w-10/12 w-11/12 overflow-hideen">
-      <div className="font-Khand font-bold xl:text-8xl lg:text-7xl text-6xl w-3/6 md:flex flex-col justify-center items-start text-left p-3 xl:leading-[7rem] lg:leading-[5rem] leading-[4rem] h-full hidden text-wrap">
-        <p>Today's <span className="text-blue underline">Tasks,</span></p>
+    <div className="flex w-9/12 items-stretch justify-center gap-5 p-4 text-zinc-100 md:justify-between">
+      <div className="hidden min-h-full w-1/2 flex-col items-start justify-center text-wrap p-1 text-left font-sans text-6xl leading-[4rem] lg:flex lg:text-6xl lg:leading-[5rem] xl:text-7xl xl:leading-[7rem]">
+        <p>
+          Today's <span className="text-blue underline">Tasks,</span>
+        </p>
         <p>Tomorrow's </p>
         <p className="text-green-600 underline">Success</p>
       </div>
-      <div className="p-1 rounded-md w-full">
-        <p className="text-4xl text-center mb-[2rem] font-sans lg:text-3xl">Join today</p>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col w-full">
+      <div className="flex grow flex-col items-center justify-center gap-5 rounded-md border border-gray-800 p-3">
+        <p className="w-full text-center font-sans text-4xl lg:text-3xl">
+          Join today
+        </p>
+        <form
+          className="flex min-w-[80%] max-w-full flex-col gap-3"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="flex w-full flex-col gap-1">
             <label htmlFor="name" className="text-xl">
               Name
             </label>
@@ -64,15 +71,15 @@ const SignupComponent: React.FC = () => {
               placeholder="Name"
               id="name"
               {...register("name")}
-              className="focus:outline-none p-2 rounded-md text-lg text-black"
+              className="rounded-md p-2 text-lg text-black focus:outline-none"
             />
             {errors.name && (
-              <span className="text-red-500 font-bold text-sm">
+              <span className="text-sm font-bold text-red-500">
                 {errors.name.message}
               </span>
             )}
           </div>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             <label htmlFor="username" className="text-xl">
               Username
             </label>
@@ -84,20 +91,20 @@ const SignupComponent: React.FC = () => {
               onChange={async (e) => {
                 await usernameHandler(e.target.value);
               }}
-              className="focus:outline-none p-2 rounded-md text-lg text-black"
+              className="rounded-md p-2 text-lg text-black focus:outline-none"
             />
             {exists && (
-              <span className="text-red-500 font-bold">
+              <span className="font-bold text-red-500">
                 This username is already taken
               </span>
             )}
             {errors.username && (
-              <span className="text-red-500 font-bold text-sm">
+              <span className="text-sm font-bold text-red-500">
                 {errors.username.message}
               </span>
             )}
           </div>
-          <div className="flex flex-col w-full">
+          <div className="flex w-full flex-col">
             <label htmlFor="email" className="text-xl">
               Email
             </label>
@@ -106,10 +113,10 @@ const SignupComponent: React.FC = () => {
               placeholder="Email"
               id="email"
               {...register("email")}
-              className="focus:outline-none p-2 rounded-md text-lg text-black"
+              className="rounded-md p-2 text-lg text-black focus:outline-none"
             />
             {errors.email && (
-              <span className="text-red-500 font-bold text-sm">
+              <span className="text-sm font-bold text-red-500">
                 {errors.email.message}
               </span>
             )}
@@ -124,28 +131,41 @@ const SignupComponent: React.FC = () => {
                 placeholder="Password"
                 id="password"
                 {...register("password")}
-                className="focus:outline-none p-1 text-lg text-black w-full"
+                className="w-full p-1 text-lg text-black focus:outline-none"
               />
-              <div onClick={() => setShowPassword(!showPassword)} className="cursor-pointer">
-                {showPassword ? (<GrFormView className="size-10 text-black" />) : (<GrFormViewHide className="size-10 text-black" />)}
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="cursor-pointer"
+              >
+                {showPassword ? (
+                  <GrFormView className="size-10 text-black" />
+                ) : (
+                  <GrFormViewHide className="size-10 text-black" />
+                )}
               </div>
             </div>
             {errors.password && (
-              <span className="text-red-500 font-bold text-sm">
+              <span className="text-sm font-bold text-red-500">
                 {errors.password.message}
               </span>
             )}
           </div>
           <button
             type="submit"
-            className="p-3 bg-blue text-white rounded-lg mt-5 lg:text-xl text-lg"
+            className="mt-5 rounded-lg bg-blue p-3 text-lg text-white lg:text-xl"
           >
             Sign up
           </button>
         </form>
+        <div className="text-lg">
+          Already joined? &nbsp;
+          <Link to="/auth/login" className="underline">
+            Login
+          </Link>
+        </div>
       </div>
-    </div >
+    </div>
   );
 };
 
-export default SignupComponent;
+export default SignupLayout;

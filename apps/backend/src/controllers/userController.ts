@@ -46,6 +46,11 @@ export const followUser = async (
       .status(400)
       .json({ success: false, message: "Incomplete request" });
   }
+  if (req.user?.id === userId) {
+    return res
+      .status(400)
+      .json({ success: false, message: "You can't follow yourself" });
+  }
   try {
     const user = await db.user.findUnique({
       where: { id: userId },
@@ -89,6 +94,11 @@ export const unfollowUser = async (
       .status(400)
       .json({ success: false, message: "Incomplete request" });
   }
+  if (req.user?.id === userId) {
+    return res
+      .status(400)
+      .json({ success: false, message: "You can't unfollow yourself" });
+  }
   try {
     const user = await db.user.findUnique({
       where: { id: userId },
@@ -131,10 +141,34 @@ export const getFollowing = async (
         followedById: req.user?.id,
       },
       select: {
-        followers: true,
+        user: true,
       },
     });
     return res.status(200).json({ success: true, data: followingUsers });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getFollowCount = async (
+  req: userRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const followingCount = await db.follow.count({
+      where: {
+        followedById: req.user?.id,
+      },
+    });
+    const followerCount = await db.follow.count({
+      where: {
+        userId: req.user?.id,
+      },
+    });
+    return res
+      .status(200)
+      .json({ success: true, data: { followingCount, followerCount } });
   } catch (err) {
     next(err);
   }

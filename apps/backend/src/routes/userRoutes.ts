@@ -1,6 +1,7 @@
 import express from "express";
 import {
   followUser,
+  getFollowCount,
   getFollowing,
   searchUsers,
   unfollowUser,
@@ -12,4 +13,5 @@ router.get("/search", searchUsers);
 router.get("/follow/:userId", followUser);
 router.get("/unfollow/:userId", unfollowUser);
 router.get("/following", getFollowing);
+router.get("/following/count", getFollowCount);
 export default router;

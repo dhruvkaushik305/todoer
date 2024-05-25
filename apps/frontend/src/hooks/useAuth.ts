@@ -7,7 +7,6 @@ const useAuth = () => {
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(loggedIn);
   useEffect(() => {
-    console.log(isLoggedIn);
     if (isLoggedIn) {
       navigate("/home");
     }

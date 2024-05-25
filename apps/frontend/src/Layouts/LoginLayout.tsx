@@ -20,31 +20,29 @@ const LoginLayout: React.FC = () => {
   });
   const onSubmit: SubmitHandler<LoginInput> = async (data) => {
     setLoading(true);
-    try {
-      const result = await loginAction(data);
-      setLoading(false);
-      if (result.success) {
-        setUser(result.data!);
-        toast.success(`Welcome back ${result.data!.name.split(" ")[0]}`);
-        navigate("/home");
-      } else {
-        toast.error(result.error);
-      }
-    } catch (err) {
-      toast.error("Server seems to be down", {
-        closeButton: true,
-      });
+    const response = await loginAction(data);
+    setLoading(false);
+    if (!response.success)
+      toast.error(
+        "Sorry, the server seems to be down. Please raise an issue if it has been a while",
+        {
+          closeButton: true,
+        },
+      );
+    else {
+      toast.success(`Welcome back ${response.data!.name.split(" ")[0]}`);
+      navigate("/home");
     }
   };
   return (
-    <div className="min-h-5/6 flex max-h-full w-10/12 items-stretch gap-2 rounded-lg p-3 text-zinc-200 md:p-5">
-      <div className="justify-centertext-center hidden h-full w-1/2 items-start font-sans leading-[8rem] lg:flex lg:flex-col lg:text-8xl xl:text-9xl">
-        <p>Good</p>
-        <p className="text-blue-500 underline">Things</p>
-        <p>Are</p>
-        <p className="text-fuchsia-400 underline">Coming</p>
+    <div className="min-h-5/6 flex max-h-full w-10/12 items-stretch justify-between gap-3 rounded-lg p-3 text-zinc-200 md:p-5">
+      <div className="hidden max-w-full grow justify-start font-sans leading-[8rem] lg:flex lg:flex-col lg:text-8xl xl:text-9xl">
+        <p>Let's</p>
+        <p className="text-green-500">get</p>
+        <p>to</p>
+        <p className="text-blue-500">work</p>
       </div>
-      <div className="flex w-full grow flex-col items-center justify-center gap-3 border border-gray-800 p-3">
+      <div className="flex max-w-full grow flex-col items-center justify-center gap-3  border border-gray-800 p-3 ">
         <header className="text-center font-sans text-2xl md:text-4xl">
           Welcome back
         </header>

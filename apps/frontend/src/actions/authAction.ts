@@ -1,6 +1,23 @@
 import { SignupInput } from "@repo/types/Auth";
 import { UserType } from "../../../../packages/types/userTypes.js";
 
+export const isLoggedIn = async () => {
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/isLogged`, {
+      credentials: "include",
+    });
+    const response: { success: boolean; data?: UserType; error?: string } =
+      await res.json();
+    console.log(response);
+    return response;
+  } catch (err) {
+    return {
+      success: false,
+      error: "Something went wrong while making the request",
+    };
+  }
+};
+
 export const checkUsernameAction = async (username: string) => {
   try {
     const res = await fetch(
@@ -20,23 +37,29 @@ export const checkUsernameAction = async (username: string) => {
   }
 };
 export const signupAction = async (user: SignupInput) => {
-  const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
-  const data: { success: boolean; error?: string; data?: UserType } =
-    await res.json();
-  return data;
+  try {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/signup`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    const data: { success: boolean; error?: string; data?: UserType } =
+      await res.json();
+    return data;
+  } catch (err) {
+    return {
+      success: false,
+      error: "Something went wrong while making the request",
+    };
+  }
 };
 export const loginAction = async (input: {
   email: string;
   password: string;
 }) => {
-  //TODO: authAction and userActions don't have consistent behaviours
   try {
     const res = await fetch(`${import.meta.env.VITE_BACKEND}/auth/login`, {
       method: "POST",

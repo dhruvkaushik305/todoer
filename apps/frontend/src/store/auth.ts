@@ -1,6 +1,6 @@
 import { UserType } from "../../../../packages/types/userTypes.js";
 import { atom, selector, useSetRecoilState } from "recoil";
-import { isLoggedIn } from "../actions/userActions.js";
+import { isLoggedIn } from "../actions/authAction.js";
 export const userData = atom({
   key: "userData",
   default: null as UserType | null,

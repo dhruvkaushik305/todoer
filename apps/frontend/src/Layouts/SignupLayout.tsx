@@ -24,17 +24,18 @@ const SignupLayout: React.FC = () => {
     //Don't allow to signup if the username is already taken
     setSignupLoading(true);
     if (exists) return;
-    try {
-      const response = await signupAction(data);
-      setSignupLoading(false);
-      if (response.success) {
-        toast.success("Account created, let's login");
-        navigate("/auth/login");
-      }
-    } catch (err) {
-      toast.error("Server seems to be down", {
-        closeButton: true,
-      });
+    const response = await signupAction(data);
+    setSignupLoading(false);
+    if (!response.success)
+      toast.error(
+        "Sorry, the server seems to be down. Please raise an issue if it has been a while",
+        {
+          closeButton: true,
+        },
+      );
+    else {
+      toast.success("Account created, let's login");
+      navigate("/auth/login");
     }
   };
   const usernameHandler = async (username: string) => {
@@ -44,10 +45,16 @@ const SignupLayout: React.FC = () => {
     timeout = setTimeout(async () => {
       const data = await checkUsernameAction(username);
       setUsernameLoading(false);
-      if (data.exists) {
-        setExists(true);
+      if (data.success) {
+        if (data.exists) setExists(true);
+        else setExists(false);
       } else {
-        setExists(false);
+        toast.error(
+          "Sorry, the server seems to be down. Please raise an issue if it has been a while",
+          {
+            closeButton: true,
+          },
+        );
       }
     }, 1000);
   };
@@ -55,10 +62,10 @@ const SignupLayout: React.FC = () => {
     <div className="flex w-9/12 items-stretch justify-center gap-5 p-4 text-zinc-100 md:justify-between">
       <div className="hidden min-h-full w-1/2 flex-col items-start justify-center text-wrap p-1 text-left font-sans text-6xl leading-[4rem] lg:flex lg:text-6xl lg:leading-[5rem] xl:text-7xl xl:leading-[7rem]">
         <p>
-          Today's <span className="text-blue-500 underline">Tasks,</span>
+          Today's <span className="text-blue-500">Tasks,</span>
         </p>
         <p>Tomorrow's </p>
-        <p className="text-green-600 underline">Success</p>
+        <p className="text-green-600">Success</p>
       </div>
       <div className="flex grow flex-col items-center justify-center gap-5 rounded-md border border-gray-800 p-3">
         <p className="w-full text-center font-sans text-4xl lg:text-3xl">

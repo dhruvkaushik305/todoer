@@ -15,8 +15,8 @@ model User {
   username  String   @unique
   Post      Post?
   joinedAt  DateTime @default(now())
-  followers Follow[] @relation("followers") //People who follow this user
-  following Follow[] @relation("following") //People who this user is following
+  followers Follow[] @relation("UserFollowing")
+  following Follow[] @relation("UserFollowers")
 }
 
 model Todo {
@@ -36,20 +36,21 @@ model Post {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // cheers    Cheer[]
+  cheers    Cheer[]
 }
 
-// model Cheer {
-//   id        String   @id @default(uuid())
-//   count    Int
-//   postId String
-//   Post    Post    @relation(fields: [postId], references: [id])
-// }
+model Cheer {
+  id     String @id @default(uuid())
+  count  Int    @default(0)
+  postId String @unique
+  Post   Post   @relation(fields: [postId], references: [id])
+}
+
 model Follow {
-  id           String   @id @default(uuid())
-  userId       String   @unique
-  followedById String   @unique
-  followers    User     @relation("followers", fields: [userId], references: [id]) //People who follow this user
-  following    User     @relation("following", fields: [followedById], references: [id]) //People who this user is following
-  createdAt    DateTime @default(now())
+  id             String   @id @default(uuid())
+  userId         String
+  followedById   String
+  createdAt      DateTime @default(now())
+  user           User     @relation("UserFollowing", fields: [userId], references: [id])
+  followedByUser User     @relation("UserFollowers", fields: [followedById], references: [id])
 }

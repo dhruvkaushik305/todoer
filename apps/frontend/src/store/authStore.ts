@@ -1,22 +1,18 @@
-import { UserType } from "../../../../packages/types/userTypes.js";
+import { UserType } from "@repo/types/User";
 import { atom, selector, useSetRecoilState } from "recoil";
 import { isLoggedIn } from "../actions/authAction.js";
-import selectedUserAtom from "./user.js";
-export const userData = atom({
+export const userDataAtom = atom({
   key: "userData",
   default: null as UserType | null,
 });
-//TODO: Change the name
-export const loggedIn = selector({
+export const isLoggedInAtom = selector({
   key: "isLoggedIn",
   get: async ({ get }) => {
-    const user = get(userData);
+    const user = get(userDataAtom);
     if (user) {
-      const setSelectedUser = useSetRecoilState(selectedUserAtom);
-      setSelectedUser(user);
       return true;
     }
-    const setUserData = useSetRecoilState(userData);
+    const setUserData = useSetRecoilState(userDataAtom);
     const response = await isLoggedIn();
     if (response.success) {
       setUserData(response.data!);

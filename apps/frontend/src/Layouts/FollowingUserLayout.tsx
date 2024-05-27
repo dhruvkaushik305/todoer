@@ -5,7 +5,7 @@ import selectedUserAtom from "../store/user";
 interface UserProps {
   user: UserType;
 }
-const User: React.FC<UserProps> = ({ user }) => {
+const FollowingUserLayout: React.FC<UserProps> = ({ user }) => {
   const setSelectedUser = useSetRecoilState(selectedUserAtom);
   return (
     <div
@@ -22,4 +22,4 @@ const User: React.FC<UserProps> = ({ user }) => {
     </div>
   );
 };
-export default User;
+export default FollowingUserLayout;

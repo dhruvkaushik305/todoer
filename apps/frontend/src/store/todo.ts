@@ -9,7 +9,12 @@ export const getPercentageCompletedSelector = selector({
   key: "getPercentageCompleted",
   get: ({ get }) => {
     const todos: TodoType[] = get(todoAtom);
-    return (todos.filter((todo) => todo.completed).length / todos.length) * 100;
+    if (todos.length === 0) return 0;
+    else {
+      return (
+        (todos.filter((todo) => todo.completed).length / todos.length) * 100
+      );
+    }
   },
 });
 export default todoAtom;

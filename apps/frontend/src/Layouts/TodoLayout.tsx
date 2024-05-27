@@ -8,12 +8,12 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { CiEdit } from "react-icons/ci";
 import { IoMdCheckmark } from "react-icons/io";
 import { toast } from "sonner";
-import { userData } from "../store/auth";
+import { userDataAtom } from "../store/authStore";
 import selectedUserAtom from "../store/user";
 import todoAtom from "../store/todo";
 import { deleteTodo, editState, editTodo } from "../actions/todoActions";
 const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
-  const user = useRecoilValue(userData);
+  const user = useRecoilValue(userDataAtom);
   const selectedUser = useRecoilValue(selectedUserAtom);
   const activeUser = selectedUser?.id === user?.id;
   const [edit, setEdit] = useState(false);

@@ -1,11 +1,13 @@
 import React from "react";
 import Display from "./Display";
-import FollowingLayout from "./FollowingLayout";
+import FollowingAsideLayout from "./FollowingAsideLayout";
+import useHomeAuth from "../hooks/useHomeAuth";
 const HomeLayout: React.FC = () => {
+  useHomeAuth();
   return (
     <div className="flex h-full w-full text-white">
       <Display />
-      <FollowingLayout />
+      <FollowingAsideLayout />
     </div>
   );
 };

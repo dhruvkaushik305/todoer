@@ -1,17 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { loggedIn } from "../store/auth";
+import { isLoggedInAtom } from "../store/authStore";
 import { useRecoilValue } from "recoil";
 import { IoSearch } from "react-icons/io5";
 
 const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useRecoilValue(loggedIn);
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
   return (
     <div className="sticky flex h-[4rem] w-full items-center justify-center border-b border-gray-900 bg-black p-3 md:justify-around">
       <div
         className="cursor-pointer font-Pacifico text-3xl text-white md:text-4xl"
-        onClick={() => navigate("/")}
+        onClick={() => (isLoggedIn ? navigate("/home") : navigate("/"))}
       >
         Todoer
       </div>

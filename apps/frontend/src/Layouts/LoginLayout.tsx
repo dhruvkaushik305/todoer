@@ -7,12 +7,12 @@ import { toast } from "sonner";
 import { useSetRecoilState } from "recoil";
 import { GrFormViewHide } from "react-icons/gr";
 import { GrFormView } from "react-icons/gr";
-import { userData } from "../store/auth";
+import { userDataAtom } from "../store/authStore";
 import { loginAction } from "../actions/authAction";
 import { SyncLoader } from "react-spinners";
 import selectedUserAtom from "../store/user";
 const LoginLayout: React.FC = () => {
-  const setUser = useSetRecoilState(userData);
+  const setUser = useSetRecoilState(userDataAtom);
   const setSelectedUser = useSetRecoilState(selectedUserAtom);
   const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);

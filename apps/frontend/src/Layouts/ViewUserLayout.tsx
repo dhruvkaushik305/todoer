@@ -6,6 +6,7 @@ const ViewUserLayout: React.FC = () => {
   const { id } = useParams();
   if (!id) return <div>404</div>;
   const todos: TodoType[] = useUserTodos(id);
+  console.log(todos);
   return <div className="h-full w-full">{id}</div>;
 };
 export default ViewUserLayout;

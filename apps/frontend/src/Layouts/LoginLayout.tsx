@@ -10,8 +10,10 @@ import { GrFormView } from "react-icons/gr";
 import { userData } from "../store/auth";
 import { loginAction } from "../actions/authAction";
 import { SyncLoader } from "react-spinners";
+import selectedUserAtom from "../store/user";
 const LoginLayout: React.FC = () => {
   const setUser = useSetRecoilState(userData);
+  const setSelectedUser = useSetRecoilState(selectedUserAtom);
   const [showPassword, setShowPassword] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
@@ -30,6 +32,8 @@ const LoginLayout: React.FC = () => {
         },
       );
     else {
+      setUser(response.data!);
+      setSelectedUser(response.data!);
       toast.success(`Welcome back ${response.data!.name.split(" ")[0]}`);
       navigate("/home");
     }

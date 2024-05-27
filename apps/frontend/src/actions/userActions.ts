@@ -55,7 +55,7 @@ export const UnfollowUser = async (userId: string) => {
 };
 interface GetFollowingResponse {
   success: boolean;
-  data?: { followers: UserType }[];
+  data?: { user: UserType }[];
   error?: string;
 }
 export const getFollowingAction = async () => {

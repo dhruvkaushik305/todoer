@@ -10,6 +10,6 @@ const useAuth = () => {
     if (isLoggedIn) {
       navigate("/home");
     }
-  }, []);
+  }, [isLoggedIn]);
 };
 export default useAuth;

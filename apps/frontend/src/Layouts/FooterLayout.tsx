@@ -7,7 +7,7 @@ const FooterLayout: React.FC = () => {
         <a href="https://www.instagram.com/_archana_sr07/" target="_blank">
           ❤️
         </a>{" "}
-        by{" "}
+        (and
         <a
           href="https://open.spotify.com/album/5quMTd5zeI9yW5UDua8wS4"
           target="_blank"

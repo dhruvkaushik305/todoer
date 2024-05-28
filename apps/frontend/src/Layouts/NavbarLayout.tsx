@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { isLoggedInAtom } from "../store/authStore";
 import { useRecoilValue } from "recoil";
-import { IoSearch } from "react-icons/io5";
 
 const NavbarLayout: React.FC = () => {
   const navigate = useNavigate();
@@ -15,16 +14,6 @@ const NavbarLayout: React.FC = () => {
       >
         Todoer
       </div>
-      {isLoggedIn && (
-        <div className="flex items-center gap-3 rounded-md bg-slate-600 p-2">
-          <IoSearch className="size-6 text-white" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="min-w-[20rem] bg-slate-600 text-white focus:outline-none"
-          />
-        </div>
-      )}
     </div>
   );
 };

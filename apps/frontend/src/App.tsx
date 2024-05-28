@@ -11,7 +11,7 @@ import HomeLayout from "./Layouts/HomeLayout";
 function App() {
   useAuth();
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex h-screen w-screen flex-col text-white">
       <Toaster richColors />
       <NavbarLayout />
       <div className="flex grow items-center justify-center overflow-x-hidden bg-black">

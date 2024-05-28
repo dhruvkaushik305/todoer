@@ -4,6 +4,7 @@ import { getFollowingAction } from "../actions/userActions";
 import FollowingUserLayout from "./FollowingUserLayout";
 const FollowingAsideLayout: React.FC = () => {
   const [following, setFollowing] = useState<{ user: UserType }[] | null>(null);
+
   useEffect(() => {
     getFollowingAction().then((res) => {
       if (res.success) {
@@ -12,10 +13,10 @@ const FollowingAsideLayout: React.FC = () => {
     });
   }, []);
   return (
-    <div className="flex min-w-[35rem] flex-col items-center p-3">
-      <header className="flex w-full justify-center border-b border-gray-700 p-2">
+    <div className="flex flex-col">
+      {/* <header className="flex w-full justify-center border-b border-gray-700 p-2">
         <h1 className="text-3xl font-bold">Following</h1>
-      </header>
+      </header> */}
       <div className="flex h-full w-full flex-col gap-2 p-2">
         {following &&
           following.map((item) => (

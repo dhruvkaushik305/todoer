@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { GoGrabber } from "react-icons/go";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { TodoType } from "@repo/types/Todo";
@@ -8,14 +8,12 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { CiEdit } from "react-icons/ci";
 import { IoMdCheckmark } from "react-icons/io";
 import { toast } from "sonner";
-import { userDataAtom } from "../store/authStore";
-import selectedUserAtom from "../store/user";
 import todoAtom from "../store/todo";
 import { deleteTodo, editState, editTodo } from "../actions/todoActions";
-const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
-  const user = useRecoilValue(userDataAtom);
-  const selectedUser = useRecoilValue(selectedUserAtom);
-  const activeUser = selectedUser?.id === user?.id;
+interface TodoLayoutProps {
+  todo: TodoType;
+}
+const TodoLayout: React.FC<TodoLayoutProps> = ({ todo }) => {
   const [edit, setEdit] = useState(false);
   const setTodos = useSetRecoilState<TodoType[]>(todoAtom);
   const editRef = useRef<HTMLInputElement | null>(null);
@@ -34,7 +32,7 @@ const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
     }
   };
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: todo.id, disabled: !activeUser });
+    useSortable({ id: todo.id});
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -110,19 +108,16 @@ const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
       ref={setNodeRef}
       style={style}
     >
-      {activeUser && (
-        <GoGrabber
+      <GoGrabber
           className="size-8 cursor-grab rounded-md text-white"
           {...listeners}
         />
-      )}
       <label className="flex grow items-center gap-3">
         <input
           type="checkbox"
           checked={todo.completed}
           className="size-5"
           onChange={markAsCompleted}
-          disabled={!activeUser}
         />
         <input
           className={`w-full rounded-md bg-gray-700 p-2 text-xl text-gray-100 focus:outline-none ${todo.completed ? "text-slate-500 line-through" : null}`}
@@ -132,8 +127,7 @@ const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
           onKeyDown={keyboardHandler}
         />
       </label>
-      {activeUser && (
-        <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4">
           {edit ? (
             <IoMdCheckmark
               onClick={editTodoOutput}
@@ -150,7 +144,6 @@ const TodoLayout: React.FC<{ todo: TodoType }> = ({ todo }) => {
             onClick={deleteHandler}
           />
         </div>
-      )}
     </div>
   );
 };

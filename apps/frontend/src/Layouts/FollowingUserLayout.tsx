@@ -6,7 +6,7 @@ interface UserProps {
 }
 const FollowingUserLayout: React.FC<UserProps> = ({ user }) => {
   return (
-    <Link to={`/home/view/${user.id}`}>
+    <Link to={`/home/view/${user.id}`}> 
       <div className="flex cursor-pointer items-center gap-3 rounded-lg bg-gray-500 p-3">
         <div className="flex size-16 items-center justify-center rounded-full bg-zinc-200/30 text-2xl">
           {user.name.split(" ")[0][0]}

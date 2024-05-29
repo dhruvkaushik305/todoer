@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FollowingAsideLayout from "./FollowingAsideLayout";
-import { Link } from "react-router-dom";
 import SearchLayout from "./SearchLayout";
 const RightAsideLayout: React.FC = () => {
     const [following, setFollowing] = useState<boolean>(true);

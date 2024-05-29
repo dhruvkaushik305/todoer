@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import useGetTodos from "../hooks/useGetTodos";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { TodoType } from "@repo/types/Todo";
 import todoAtom from "../store/todo";
 import {
@@ -19,8 +18,11 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import TodoLayout from "./TodoLayout";
+import { userDataAtom } from "../store/authStore";
+import useGetTodos from "../hooks/useGetTodos";
 const TodoListLayout: React.FC = () => {
-  useGetTodos();
+  const user = useRecoilValue(userDataAtom);
+  useGetTodos(user!.id);
   let timeout = useRef<NodeJS.Timeout>();
   const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
   const dragHandler = (event: any) => {

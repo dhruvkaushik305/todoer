@@ -1,11 +1,14 @@
 import { UserType } from "@repo/types/User";
 import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import UserComponent from "../components/Home/NavigationSection/UserComponent";
 import { SearchUser } from "../actions/userActions";
+import SearchedUserLayout from "./SearchedUserLayout";
 let timeout: NodeJS.Timeout | undefined;
+interface SearchedUser extends UserType{ 
+    following: boolean;
+}
 const SearchLayout: React.FC = () => {
-    const [users,setUsers] = useState<UserType[] | null>(null);
+    const [users,setUsers] = useState<SearchedUser[] | null>(null);
     const inputRef = React.useRef<HTMLInputElement>(null);
     const searchHandler = () => {
         clearTimeout(timeout);
@@ -26,7 +29,7 @@ const SearchLayout: React.FC = () => {
         <input type="text" placeholder="Search" className="bg-transparent p-2 w-full focus:outline-none" ref={inputRef} onChange={searchHandler}/>
     </div>
     <div className="flex flex-col gap-3 w-full">
-        {users && (users.length > 0?users.map((user)=>(<UserComponent key={user.id} user={user} />)):<div className="text-center">No users found</div>)}
+        {users && (users.length > 0?users.map((user)=>(<SearchedUserLayout key={user.id} user={user} />)):<div className="text-center">No users found</div>)}
     </div>
   </div>;
 };

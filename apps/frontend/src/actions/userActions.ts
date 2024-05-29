@@ -1,5 +1,7 @@
 import { UserType } from "../../../../packages/types/userTypes.js";
-
+interface SearchedUser extends UserType{
+    following: boolean;
+}
 export const SearchUser = async (username: string) => {
   try {
     const res = await fetch(
@@ -8,7 +10,7 @@ export const SearchUser = async (username: string) => {
         credentials: "include",
       },
     );
-    const response: { success: boolean; data?: UserType[] } = await res.json();
+    const response: { success: boolean; data?: SearchedUser[] } = await res.json();
     return response;
   } catch (err) {
     console.error("Error while searching for the user", err);

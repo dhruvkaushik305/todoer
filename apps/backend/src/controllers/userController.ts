@@ -5,7 +5,9 @@ import db from "@repo/db/prisma";
 interface userRequest extends Request {
   user?: UserType;
 }
-
+interface searchedUsers extends UserType {
+  following?: boolean;
+}
 export const searchUsers = async (
   req: userRequest,
   res: Response,
@@ -18,12 +20,25 @@ export const searchUsers = async (
       .json({ success: false, message: "Incomplete request" });
   }
   try {
-    const users = await db.user.findMany({
+    const users: searchedUsers[] = await db.user.findMany({
       where: {
         username: { contains: query.toString() },
         NOT: { id: req.user?.id },
-      },
+      }
     });
+    await Promise.all(users.map(async(user)=>{
+      const isFollowing = await db.follow.findFirst({
+        where: {
+          userId: user.id,
+          followedById: req.user?.id,
+        }
+      })
+      if (isFollowing) {
+        user.following = true;
+      } else{
+        user.following = false;
+      }
+    }));
     if (users.length === 0) {
       return res
         .status(404)

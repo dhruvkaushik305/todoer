@@ -21,11 +21,16 @@ const NavbarLayout: React.FC = () => {
       </div>
       {userInfo && (
         <div className="relative">
-          <div
-            className="flex size-10 cursor-pointer items-center justify-center rounded-full border-2 border-black bg-blue-600 text-xl text-zinc-200 transition-colors duration-300 hover:border-blue-400"
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            {userInfo.name.split(" ")[0][0]}
+          <div className="flex gap-2">
+            <div
+              className="flex size-10 cursor-pointer items-center justify-center rounded-full border-2 border-black bg-blue-600 text-xl text-zinc-200 transition-colors duration-300 hover:border-blue-400"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              {userInfo.name.split(" ")[0][0]}
+            </div>
+            <div className="flex flex-col items-start justify-center">
+              <p className="text-lg">@{userInfo.username}</p>
+            </div>
           </div>
           {dropdownOpen && (
             <div className="absolute left-1/2 top-[4rem] flex min-w-[15rem] -translate-x-1/2 transform flex-col items-center gap-1 rounded-lg bg-gray-400/95 p-2 shadow-xl ">

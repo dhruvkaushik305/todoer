@@ -11,10 +11,10 @@ import HomeLayout from "./Layouts/HomeLayout";
 function App() {
   useAuth();
   return (
-    <div className="flex h-screen w-screen flex-col text-white">
+    <div className="overflow-y-auto overflow-x-hidden text-white">
       <Toaster richColors />
       <NavbarLayout />
-      <div className="flex grow items-center justify-center overflow-x-hidden bg-black">
+      <div className="flex h-screen w-screen items-center justify-center overflow-x-hidden bg-black">
         <Routes>
           <Route path="/" element={<LandingLayout />} />
           <Route path="/auth/signup" element={<SignupLayout />} />

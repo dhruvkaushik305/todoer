@@ -13,13 +13,11 @@ const FollowingAsideLayout: React.FC = () => {
     });
   }, []);
   return (
-    <div className="flex flex-col">
-      <div className="flex h-full w-full flex-col gap-2 p-2">
-        {following &&
-          following.map((item) => (
-            <FollowingUserLayout key={item.user.id} user={item.user} />
-          ))}
-      </div>
+    <div className="flex h-full w-full flex-col gap-2">
+      {following &&
+        following.map((item) => (
+          <FollowingUserLayout key={item.user.id} user={item.user} />
+        ))}
     </div>
   );
 };

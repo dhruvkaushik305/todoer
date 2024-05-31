@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FollowUser, UnfollowUser } from "../actions/userActions";
 import { UserType } from "@repo/types/User";
-type UserComponentProps = {
-  user: UserType & { following: boolean };
+type SearchedUserProps = {
+  user: UserType & { followingThisUser: boolean };
 };
-const SearchedUserLayout: React.FC<UserComponentProps> = ({ user }) => {
-  const [follow, setFollow] = useState(user.following);
+const SearchedUserLayout: React.FC<SearchedUserProps> = ({ user }) => {
+  console.log(user.followingThisUser);
+  const [follow, setFollow] = useState(user.followingThisUser);
   const [disabled, setDisabled] = useState(false);
   const followHandler = async () => {
     setDisabled(true);
@@ -25,9 +26,9 @@ const SearchedUserLayout: React.FC<UserComponentProps> = ({ user }) => {
     setDisabled(false);
   };
   return (
-    <div className="flex cursor-pointer items-center gap-3 rounded-lg bg-violet-400/80 p-3 hover:bg-violet-500/80">
+    <div className="flex scale-95 cursor-pointer items-center gap-3 rounded-lg bg-black/50 p-3 transition-colors duration-200 hover:bg-black/60">
       <Link to={"/home/profile/" + user.id} className="cursor-pointer">
-        <div className="flex size-16 items-center justify-center rounded-full bg-indigo-800/30 text-2xl">
+        <div className="flex size-16 items-center justify-center rounded-full bg-slate-700/30 text-2xl">
           {user?.name[0].toUpperCase()}
         </div>
       </Link>

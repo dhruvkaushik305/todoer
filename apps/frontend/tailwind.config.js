@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        flockingStars:
+          "url('/home/dhruvk/Projects/Todoer/apps/frontend/assets/flock of shooting stars.png')",
+      },
       colors: {
         midnightBlue: "#003D7A",
         darkBlue: "#051537",

@@ -53,7 +53,7 @@ const TodoListLayout: React.FC = () => {
       <div className="text-xl text-red-500">[Critical]Todos is undefined.</div>
     );
   return (
-    <div className="flex h-full w-full flex-col gap-2 overflow-y-auto pe-3 text-white">
+    <div className="flex h-full w-full flex-col gap-2 overflow-y-auto pe-2 text-white">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}

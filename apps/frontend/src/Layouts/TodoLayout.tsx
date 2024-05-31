@@ -103,13 +103,13 @@ const TodoLayout: React.FC<TodoLayoutProps> = ({ todo }) => {
   return (
     <div
       key={todo.id}
-      className="flex touch-none items-center gap-3 rounded-xl border-2 border-slate-800 bg-gray-800 p-2 hover:border-2 hover:border-slate-400"
+      className="flex touch-none items-center gap-2 rounded-full border-2 border-slate-800/50 bg-black/30 p-2 backdrop-blur-md hover:border-2 hover:border-slate-400"
       {...attributes}
       ref={setNodeRef}
       style={style}
     >
       <GoGrabber
-        className="size-8 cursor-grab rounded-md text-white"
+        className="size-10 cursor-grab rounded-md text-white"
         {...listeners}
       />
       <label className="flex grow items-center gap-3">
@@ -120,14 +120,14 @@ const TodoLayout: React.FC<TodoLayoutProps> = ({ todo }) => {
           onChange={markAsCompleted}
         />
         <input
-          className={`w-full rounded-md bg-gray-700 p-2 text-xl text-white focus:outline-none ${todo.completed ? "text-gray-400 line-through" : null}`}
+          className={`w-full rounded-full bg-black/20 p-2 px-3 text-xl text-white focus:outline-none ${todo.completed ? "text-slate-500 line-through" : null}`}
           defaultValue={todo.task.trim()}
           disabled
           ref={editRef}
           onKeyDown={keyboardHandler}
         />
       </label>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         {edit ? (
           <IoMdCheckmark
             onClick={editTodoOutput}

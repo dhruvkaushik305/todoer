@@ -5,7 +5,7 @@ import TodoInputLayout from "./TodoInputLayout";
 
 const DashboardLayout: React.FC = () => {
   return (
-    <div className="flex h-full min-w-[65rem] max-w-[65rem] flex-col gap-5 p-3">
+    <div className="flex h-full max-w-[65rem] grow flex-col gap-5 p-3">
       <CardLayout />
       <TodoInputLayout />
       <TodoListLayout />

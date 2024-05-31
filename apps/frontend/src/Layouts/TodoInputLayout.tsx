@@ -48,11 +48,8 @@ const TodoInputLayout: React.FC = () => {
     }
   };
   return (
-    <div className="rounded-xl p-1">
-      <form
-        className="flex gap-2 rounded-lg bg-gray-700 p-2"
-        onSubmit={handleAddTodo}
-      >
+    <div className="rounded-3xl bg-black/30 p-1 backdrop-blur-sm">
+      <form className="flex gap-2 p-1 lg:p-3" onSubmit={handleAddTodo}>
         <input
           type="text"
           placeholder="Add a task"

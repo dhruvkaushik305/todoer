@@ -6,7 +6,7 @@ interface userRequest extends Request {
   user?: UserType;
 }
 interface searchedUsers extends UserType {
-  following?: boolean;
+  followingThisUser?: boolean;
 }
 export const searchUsers = async (
   req: userRequest,
@@ -24,21 +24,23 @@ export const searchUsers = async (
       where: {
         username: { contains: query.toString() },
         NOT: { id: req.user?.id },
-      }
+      },
     });
-    await Promise.all(users.map(async(user)=>{
-      const isFollowing = await db.follow.findFirst({
-        where: {
-          userId: user.id,
-          followedById: req.user?.id,
+    await Promise.all(
+      users.map(async (user) => {
+        const isFollowing = await db.follow.findFirst({
+          where: {
+            userId: user.id,
+            followedById: req.user?.id,
+          },
+        });
+        if (isFollowing) {
+          user.followingThisUser = true;
+        } else {
+          user.followingThisUser = false;
         }
       })
-      if (isFollowing) {
-        user.following = true;
-      } else{
-        user.following = false;
-      }
-    }));
+    );
     if (users.length === 0) {
       return res
         .status(404)

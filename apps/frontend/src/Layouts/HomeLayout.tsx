@@ -2,12 +2,14 @@ import React from "react";
 import useHomeAuth from "../hooks/useHomeAuth";
 import DisplayLayout from "./DisplayLayout";
 import RightAsideLayout from "./RightAsideLayout";
+import RightAsideMiniLayout from "./RightAsideMiniLayout";
 const HomeLayout: React.FC = () => {
   useHomeAuth();
   return (
-    <div className="flex h-full w-full">
+    <div className="relative flex h-full w-full flex-col">
       <DisplayLayout />
-      <RightAsideLayout/>
+      <RightAsideLayout />
+      <RightAsideMiniLayout />
     </div>
   );
 };

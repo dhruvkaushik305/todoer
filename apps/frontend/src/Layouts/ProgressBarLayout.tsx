@@ -12,7 +12,7 @@ const ProgressBarLayout: React.FC = () => {
           style={{ width: `${percentage}%` }}
         />
       </div>
-      <p className="text-nowrap">{percentage}% completed</p>
+      <p className="text-nowrap">{percentage}% there</p>
     </div>
   );
 };

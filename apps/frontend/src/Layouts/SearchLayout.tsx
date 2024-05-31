@@ -5,7 +5,7 @@ import { SearchUser } from "../actions/userActions";
 import SearchedUserLayout from "./SearchedUserLayout";
 let timeout: NodeJS.Timeout | undefined;
 interface SearchedUser extends UserType {
-  following: boolean;
+  followingThisUser: boolean;
 }
 const SearchLayout: React.FC = () => {
   const [users, setUsers] = useState<SearchedUser[] | null>(null);
@@ -25,7 +25,7 @@ const SearchLayout: React.FC = () => {
   };
   return (
     <div className="flex h-full w-full flex-col items-center gap-5 px-2">
-      <div className="flex w-full items-center gap-2 rounded-lg bg-sky-300/40 p-1">
+      <div className="flex w-full scale-95 items-center gap-2 rounded-lg bg-black/30 p-1">
         <IoSearch className="size-8 p-1" />
         <input
           type="text"

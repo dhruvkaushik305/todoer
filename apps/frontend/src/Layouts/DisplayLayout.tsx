@@ -3,8 +3,8 @@ import DashboardLayout from "./DashboardLayout";
 import { Route, Routes } from "react-router-dom";
 import ViewUserLayout from "./ViewUserLayout";
 import UserProfile from "./UserProfile";
-import FollowingMiniLayout from "./FollowingMiniLayout";
 import SearchMiniLayout from "./SearchMiniLayout";
+import FollowingMiniLayout from "./FollowingMiniLayout";
 const DisplayLayout: React.FC = () => {
   return (
     <div className="flex h-full grow justify-center border-r border-gray-700 pt-[3rem] lg:p-0">

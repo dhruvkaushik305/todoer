@@ -6,7 +6,7 @@ import RightAsideMiniLayout from "./RightAsideMiniLayout";
 const HomeLayout: React.FC = () => {
   useHomeAuth();
   return (
-    <div className="relative flex h-full w-full flex-col">
+    <div className="relative flex h-full w-full flex-col lg:flex-row">
       <DisplayLayout />
       <RightAsideLayout />
       <RightAsideMiniLayout />

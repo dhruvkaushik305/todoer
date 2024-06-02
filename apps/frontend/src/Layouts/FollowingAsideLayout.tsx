@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { getFollowingAction } from "../actions/userActions";
 import FollowingUserLayout from "./FollowingUserLayout";
 interface FollowingAsideLayoutProps {
-  ToggleFollowing: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.ReactNode;
 }
 const FollowingAsideLayout: React.FC<FollowingAsideLayoutProps> = ({
-  ToggleFollowing,
+  children,
 }) => {
   const [following, setFollowing] = useState<{ user: UserType }[] | null>(null);
 
@@ -20,15 +20,7 @@ const FollowingAsideLayout: React.FC<FollowingAsideLayoutProps> = ({
   return (
     <>
       {following && following.length === 0 ? (
-        <div className="flex items-center justify-center text-lg text-slate-300">
-          <span
-            className="cursor-pointer underline hover:text-blue-600"
-            onClick={() => ToggleFollowing(false)}
-          >
-            Search
-          </span>{" "}
-          for users to follow
-        </div>
+        { children }
       ) : (
         <div className="flex h-full w-full flex-col gap-2">
           {following &&

@@ -1,5 +1,5 @@
 import { UserType } from "@repo/types/User";
-import db from "@repo/db/prisma";
+import db from "../../db";
 import { Response, Request, NextFunction } from "express";
 interface userRequest extends Request {
   user?: UserType;

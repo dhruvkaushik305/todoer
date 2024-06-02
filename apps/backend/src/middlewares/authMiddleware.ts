@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserType } from "@repo/types/User";
-import db from "@repo/db/prisma";
+import db from "../../db";
 import jwt from "jsonwebtoken";
 interface UserRequest extends Request {
   user?: UserType;

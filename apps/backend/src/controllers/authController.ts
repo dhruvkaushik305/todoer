@@ -1,7 +1,7 @@
 import { SignupSchema, LoginSchema } from "@repo/types/Auth";
 import { NextFunction, Request, Response } from "express";
 import { UserType } from "@repo/types/User";
-import db from "@repo/db/prisma";
+import db from "../../db";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

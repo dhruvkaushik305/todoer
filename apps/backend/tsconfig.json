@@ -8,14 +8,9 @@
     "moduleResolution": "NodeNext",
     "target": "ES2022",
     "paths": {
-      "@repo/types/*": ["./packages/types/*"],
-      "@repo/db/*": ["./packages/db/*"]
+      "@repo/types/*": ["./packages/types/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": [
-    "../../packages/types/**/*.ts",
-    "../../packages/db/**/*.ts",
-    "src/**/*.ts"
-  ]
+  "include": ["../../packages/types/**/*.ts", "src/**/*.ts"]
 }

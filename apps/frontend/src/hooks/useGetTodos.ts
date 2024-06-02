@@ -1,4 +1,4 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useEffect } from "react";
 import todoAtom from "../store/todo";
 import { readTodos } from "../actions/todoActions";

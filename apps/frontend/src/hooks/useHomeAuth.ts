@@ -1,13 +1,14 @@
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { userDataAtom } from "../store/authStore";
+import { useRecoilValue } from "recoil";
+import { isLoggedInAtom } from "../store/authStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const useHomeAuth = () => {
   const navigate = useNavigate();
-  const user = useRecoilValue(userDataAtom);
+  const isLoggedIn = useRecoilValue(isLoggedInAtom);
+
   useEffect(() => {
-    if (!user) {
+    if (!isLoggedIn) {
       navigate("/auth/login");
     }
   }, []);

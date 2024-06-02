@@ -22,7 +22,9 @@ import { userDataAtom } from "../store/authStore";
 import useGetTodos from "../hooks/useGetTodos";
 const TodoListLayout: React.FC = () => {
   const user = useRecoilValue(userDataAtom);
-  useGetTodos(user!.id);
+  if (user) {
+    useGetTodos(user!.id);
+  }
   let timeout = useRef<NodeJS.Timeout>();
   const [todos, setTodos] = useRecoilState<TodoType[]>(todoAtom);
   const dragHandler = (event: any) => {

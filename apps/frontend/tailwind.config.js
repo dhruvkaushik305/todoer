@@ -4,8 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        flockingStars:
-          "url('/home/dhruvk/Projects/Todoer/apps/frontend/assets/flock of shooting stars.png')",
+        flockingStars: "url('/assets/flock of shooting stars.png')",
       },
       colors: {
         midnightBlue: "#003D7A",

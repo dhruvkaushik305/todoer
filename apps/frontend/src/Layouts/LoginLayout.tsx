@@ -43,7 +43,7 @@ const LoginLayout: React.FC = () => {
         <p>to</p>
         <p className="text-blue-500">work</p>
       </div>
-      <div className="flex max-w-full grow flex-col items-center justify-center gap-3  border border-gray-800 p-3 ">
+      <div className="flex max-w-full grow flex-col items-center justify-center gap-3  rounded-lg border border-gray-800 bg-black/40 p-3 backdrop-blur-md">
         <header className="text-center font-sans text-2xl md:text-4xl">
           Welcome back
         </header>

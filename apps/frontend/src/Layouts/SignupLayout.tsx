@@ -67,7 +67,7 @@ const SignupLayout: React.FC = () => {
         <p>Tomorrow's </p>
         <p className="text-green-600">Success</p>
       </div>
-      <div className="flex grow flex-col items-center justify-center gap-5 rounded-md border border-gray-800 p-3">
+      <div className="flex grow flex-col items-center justify-center gap-5 rounded-lg border border-gray-800 bg-black/40 p-3 backdrop-blur-md">
         <p className="w-full text-center font-sans text-4xl lg:text-3xl">
           Join today
         </p>

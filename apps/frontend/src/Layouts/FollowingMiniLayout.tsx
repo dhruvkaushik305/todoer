@@ -8,11 +8,11 @@ const FollowingMiniLayout: React.FC = () => {
         Following
       </header>
       <FollowingAsideLayout>
-        <div className="flex w-full items-center justify-between p-3">
+        <div className="flex w-full items-center justify-center p-3 text-xl">
           <Link to={"/home/search"}>
             <p className="underline">Search</p>
           </Link>
-          <span> for users to follow</span>
+          <span> &nbsp; for users to follow</span>
         </div>
       </FollowingAsideLayout>
     </div>

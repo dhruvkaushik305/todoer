@@ -22,14 +22,14 @@ const RightAsideLayout: React.FC = () => {
       <div className="h-full w-full p-4">
         {following ? (
           <FollowingAsideLayout>
-            <div>
+            <div className="flex w-full items-center justify-center text-xl">
               <span
-                className="hover: underline"
+                className="hover: cursor-pointer underline"
                 onClick={() => setFollowing(false)}
               >
                 Search
               </span>
-              for users to follow
+              &nbsp; for users to follow
             </div>
           </FollowingAsideLayout>
         ) : (

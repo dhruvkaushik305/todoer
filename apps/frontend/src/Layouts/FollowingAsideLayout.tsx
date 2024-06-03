@@ -20,7 +20,7 @@ const FollowingAsideLayout: React.FC<FollowingAsideLayoutProps> = ({
   return (
     <>
       {following && following.length === 0 ? (
-        { children }
+        children
       ) : (
         <div className="flex h-full w-full flex-col gap-2">
           {following &&

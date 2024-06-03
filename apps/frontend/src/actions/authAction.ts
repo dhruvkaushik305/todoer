@@ -8,7 +8,6 @@ export const isLoggedIn = async () => {
     });
     const response: { success: boolean; data?: UserType; error?: string } =
       await res.json();
-    console.log(response);
     return response;
   } catch (err) {
     return {

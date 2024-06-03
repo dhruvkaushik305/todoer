@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/main.js",
-    "dev": "dotenv -- esbuild src/index.ts --bundle --platform=node --outfile=dist/main.js --sourcemap --watch --external:aws-sdk --external:nock --external:mock-aws-s3 --external:bcrypt --loader:.html=text",
-    "build": "npx prisma migrate deploy && npx prisma generate && esbuild src/index.ts --bundle --platform=node --outfile=dist/main.js --minify --external:aws-sdk --external:nock --external:mock-aws-s3 --external:bcrypt --loader:.html=text"
+    "dev": "dotenv -- npx esbuild src/index.ts --bundle --platform=node --outfile=dist/main.js --sourcemap --watch --external:aws-sdk --external:nock --external:mock-aws-s3 --external:bcrypt --loader:.html=text",
+    "build": "npx prisma migrate deploy && npx prisma generate && npx esbuild src/index.ts --bundle --platform=node --outfile=dist/main.js --minify --external:aws-sdk --external:nock --external:mock-aws-s3 --external:bcrypt --loader:.html=text"
   },
   "keywords": [],
   "author": "",

@@ -16,6 +16,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^3.3.4",
     "@repo/types": "*",
+    "canvas-confetti": "^1.9.3",
     "react": "^18.2.0",
     "react-activity-calendar": "^2.2.8",
     "react-dom": "^18.2.0",
@@ -27,6 +28,7 @@
     "sonner": "^1.4.41"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.6.4",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
